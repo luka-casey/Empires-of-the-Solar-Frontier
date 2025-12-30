@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class ColonyHoverUI : MonoBehaviour
+public class ColonyClick : MonoBehaviour
 {
     //private Colony colony = new Colony();
 
@@ -26,11 +26,6 @@ public class ColonyHoverUI : MonoBehaviour
     void UpdateText()
     {
         Colony colony = new Colony();
-
-        foreach(Building building in colony.buildings)
-        {
-            ColonyInfoPanel.ApplyBuildingYieldsToCity(building.yieldType, building.yieldValue, colony);
-        }
 
         populationText.text = $"Population: {colony.population}";
         incomeText.text = $"Income: {colony.income}";

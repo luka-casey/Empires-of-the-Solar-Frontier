@@ -3,23 +3,42 @@ using UnityEngine;
 public class PlanetColonyManager : MonoBehaviour
 {
     public GameObject colonyIconPrefab;
+    public GameObject planetPanelsPrefab;
     public Transform colonyIconSpawnPoint;
 
-    public Colony colony;
+    private GameObject planetPanelsInstance; // store instantiated panel
+    private GameObject colonyIconInstance;   // store instantiated icon
+
+    private Colony colony = new Colony();
     public bool hasColony = false;
 
     public void EstablishColony()
     {
-        //TODO: Only allows one colony per planet for now
-        //Will change later
         if (hasColony) return;
 
-        colony = new Colony();
         hasColony = true;
 
-        Instantiate(colonyIconPrefab, colonyIconSpawnPoint.position, Quaternion.identity, transform);
+        // Instantiate colony icon attached to planet
+        colonyIconInstance = Instantiate(colonyIconPrefab, colonyIconSpawnPoint.position, Quaternion.identity, transform);
+
+        // Add a click listener to the icon
+        var clickHandler = colonyIconInstance.AddComponent<ColonyIconClick>();
+        clickHandler.Init(this);
+
+        // Instantiate panel at root and store reference
+        planetPanelsInstance = Instantiate(planetPanelsPrefab);
+
+        // Start with panel hidden
+        planetPanelsInstance.SetActive(false);
 
         Debug.Log("Colony established!");
-        Debug.Log($"Population: {colony.population}");
+    }
+
+    public void ToggleColonyPanels()
+    {
+        if (planetPanelsInstance != null)
+        {
+            planetPanelsInstance.SetActive(!planetPanelsInstance.activeSelf);
+        }
     }
 }

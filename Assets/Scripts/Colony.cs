@@ -4,22 +4,22 @@ using UnityEngine;
 [System.Serializable]
 public class Colony
 {
-    public int population;
-    public int income;
-    public int expenses;
-    public int production;
-    public int science;
+    public int population {get; set;}
+    public int income {get; set;}
+    public int expenses {get; set;}
+    public int production {get; set;}
+    public int science {get; set;} 
     public string history;
     public List<Building> buildings;
     public List<Production> productions;
 
     public Colony()
     {
-        population = 10;
-        income = 50;
-        expenses = 20;
-        production = 10;
-        science = 5;
+        //population = 10;
+        //income = 50;
+        //expenses = 20;
+        //production = 10;
+        //science = 5;
         history = "By the late 22nd century, Earth was poised on the brink of a new frontier. The Western Alliance, led by Europe and the Americas, and the Eastern Compact, guided by China and its Asian partners, had spent decades preparing fleets, orbital stations, and interplanetary infrastructure. Humanity was about to enter its own Age of Discovery, a solar exploration reminiscent of the 14th-century voyages that opened the Americas—a race to claim new worlds, settle distant lands, and stake the first flags beyond Earth. The stars awaited, and the age of solar exploration was about to dawn.";
         buildings = CreateBuildings();
         productions = CreateProductions();
@@ -30,16 +30,16 @@ public class Colony
     {
         List<Building> buildings = new List<Building>();
 
-        Building researchLab = new Building("Research Lab", "Science +3");
+        Building researchLab = new Building("Research Lab", "Science +3", YieldTypeEnum.Science, 3);
         buildings.Add(researchLab);
 
-        Building spaceshipFactory = new Building("Spaceship Factory", "Production +10");
+        Building spaceshipFactory = new Building("Spaceship Factory", "Production +10", YieldTypeEnum.Production, 10);
         buildings.Add(spaceshipFactory);
 
-        Building greenhouse = new Building("Green House", "Food +7");
+        Building greenhouse = new Building("Green House", "Food +7", YieldTypeEnum.Food, 7);
         buildings.Add(greenhouse);
 
-        Building mine = new Building("Mine", "Credits +8");
+        Building mine = new Building("Mine", "Credits +8", YieldTypeEnum.Credits, 8);
         buildings.Add(mine);
 
         return buildings;
@@ -84,11 +84,15 @@ public class Building
 {
     public string name;
     public string abilityText;
+    public YieldTypeEnum yieldType;
+    public int yieldValue;
 
-    public Building(string Name, string AbilityText)
+    public Building(string Name, string AbilityText, YieldTypeEnum YieldType, int YieldValue)
     {
         this.name = Name;
         this.abilityText = AbilityText;
+        this.yieldType = YieldType;
+        this.yieldValue = YieldValue;
     }
 }
 
@@ -111,4 +115,13 @@ public enum ProductionTypeEnum
 {
     Unit,
     Building
+}
+
+public enum YieldTypeEnum
+{
+    Population,
+    Credits,
+    Production,
+    Science,
+    Food
 }

@@ -29,4 +29,5 @@ public class ColonyBuildingsPanel : MonoBehaviour
             abilityText.text = building.abilityText;
         }
     }
+
 }
