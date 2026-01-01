@@ -3,14 +3,18 @@ using TMPro;
 
 public class ColonyHoverUI : MonoBehaviour
 {
-    //private Colony colony = new Colony();
-
     public Canvas tooltipCanvas;
     public TextMeshProUGUI populationText;
     public TextMeshProUGUI incomeText;
     public TextMeshProUGUI expensesText;
     public TextMeshProUGUI productionText;
     public TextMeshProUGUI scienceText;
+    private Colony colony;
+
+    void Start()
+    {
+        colony = XmlManager.Load();
+    }
 
     void OnMouseEnter()
     {
@@ -25,17 +29,18 @@ public class ColonyHoverUI : MonoBehaviour
 
     void UpdateText()
     {
-        Colony colony = new Colony();
-
-        foreach(Building building in colony.buildings)
+        if (colony.buildings != null)
         {
-            ColonyInfoPanel.ApplyBuildingYieldsToCity(building.yieldType, building.yieldValue, colony);
-        }
+            foreach(Building building in colony.buildings)
+            {
+                //ColonyInfoPanel.ApplyBuildingYieldsToCity(building, colony);
+            }
 
-        populationText.text = $"Population: {colony.population}";
-        incomeText.text = $"Income: {colony.income}";
-        expensesText.text = $"Expenses: {colony.expenses}";
-        productionText.text = $"Production: {colony.production}";
-        scienceText.text = $"Science: {colony.science}";
+            populationText.text = $"Population: {colony.population}";
+            incomeText.text = $"Income: {colony.income}";
+            expensesText.text = $"Expenses: {colony.expenses}";
+            productionText.text = $"Production: {colony.production}";
+            scienceText.text = $"Science: {colony.science}";
+        }
     }
 }

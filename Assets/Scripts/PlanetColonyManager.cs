@@ -9,7 +9,6 @@ public class PlanetColonyManager : MonoBehaviour
     private GameObject planetPanelsInstance; // store instantiated panel
     private GameObject colonyIconInstance;   // store instantiated icon
 
-    private Colony colony = new Colony();
     public bool hasColony = false;
 
     public void EstablishColony()
@@ -30,8 +29,6 @@ public class PlanetColonyManager : MonoBehaviour
 
         // Start with panel hidden
         planetPanelsInstance.SetActive(false);
-
-        Debug.Log("Colony established!");
     }
 
     public void ToggleColonyPanels()

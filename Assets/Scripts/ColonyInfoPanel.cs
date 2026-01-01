@@ -3,7 +3,7 @@ using TMPro;
 
 public class ColonyInfoPanel : MonoBehaviour
 {
-    private Colony colony = new Colony();
+    private Colony colony;
 
     [Header("Value Texts")]
     public TextMeshProUGUI populationValue;
@@ -14,37 +14,41 @@ public class ColonyInfoPanel : MonoBehaviour
 
     void Start()
     {
+        colony = XmlManager.Load();
         UpdateText();
     }
 
     public void UpdateText()
     {
-        foreach(Building building in colony.buildings)
+        if (colony.buildings != null)
         {
-            ApplyBuildingYieldsToCity(building.yieldType, building.yieldValue, this.colony);
-        }
+            foreach(Building building in colony.buildings)
+            {
+                ApplyBuildingYieldsToCity(building, this.colony);
+            }
 
-        populationValue.text = colony.population.ToString();
-        incomeValue.text = colony.income.ToString();
-        expensesValue.text = colony.expenses.ToString();
-        productionValue.text = colony.production.ToString();
-        scienceValue.text = colony.science.ToString();
+            populationValue.text = colony.population.ToString();
+            incomeValue.text = colony.income.ToString();
+            expensesValue.text = colony.expenses.ToString();
+            productionValue.text = colony.production.ToString();
+            scienceValue.text = colony.science.ToString();
+        }
     }
 
-    public static void ApplyBuildingYieldsToCity(YieldTypeEnum yieldType, int yieldValue, Colony colony)
+    public static void ApplyBuildingYieldsToCity(Building building, Colony colony)
     {
-        switch (yieldType)
+        switch (building.yieldType)
         {
             case YieldTypeEnum.Credits:
-                colony.income += yieldValue;
+                colony.income += building.yieldValue;
                 break;
 
             case YieldTypeEnum.Production:
-                colony.production += yieldValue;
+                colony.production = building.yieldValue; 
                 break;
 
             case YieldTypeEnum.Science:
-                colony.science += yieldValue;
+                colony.science += building.yieldValue;
                 break;
 
             default:

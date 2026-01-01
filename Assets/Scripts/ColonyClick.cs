@@ -3,8 +3,6 @@ using TMPro;
 
 public class ColonyClick : MonoBehaviour
 {
-    //private Colony colony = new Colony();
-
     public Canvas tooltipCanvas;
     public TextMeshProUGUI populationText;
     public TextMeshProUGUI incomeText;

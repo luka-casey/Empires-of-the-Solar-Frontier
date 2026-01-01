@@ -8,10 +8,6 @@ public class Planet : MonoBehaviour
     {
         if (ShipSelection.selectedShip == null)
             return;
-
-        Debug.Log("Moving to orbit: " + this.orbit);
-
-        //Transform orbit = transform.parent; // Planet_Orbit
         
         ShipSelection.selectedShip.MoveToOrbit(this.orbit);
     }

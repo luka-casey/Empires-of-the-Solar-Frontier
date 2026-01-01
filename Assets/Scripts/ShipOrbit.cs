@@ -65,8 +65,6 @@ public class ShipOrbit : MonoBehaviour
 
     public void MoveToOrbit(Transform newOrbit)
     {
-        //Debug.Log("Moving to orbit: " + newOrbit.name);
-
         if (newOrbit == currentOrbit)
             return;
 
