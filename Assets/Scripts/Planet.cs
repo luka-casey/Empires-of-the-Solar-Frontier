@@ -6,9 +6,9 @@ public class Planet : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (ShipSelection.selectedShip == null)
-            return;
-        
-        ShipSelection.selectedShip.MoveToOrbit(this.orbit);
+        if (ShipSelection.selectedShip == null) return;
+
+        // Queue the planet as the next target
+        ShipSelection.selectedShip.QueueMove(orbit);
     }
 }
