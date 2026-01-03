@@ -1,11 +1,16 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 public class CurrentProductionPanel : MonoBehaviour
 {
     public GameObject buildPrefab;
     public GameObject turnsLeftPrefab;
     private Colony colony;
+
+    private List<Production> productions;
+
 
     void Start()
     {
@@ -25,6 +30,8 @@ public class CurrentProductionPanel : MonoBehaviour
 
     private void UpdateSelectedProduction()
     {
+        colony = XmlManager.Load();
+
         Transform buildTransform = transform.Find("Build(Clone)");
         TextMeshProUGUI build = buildTransform.GetComponent<TextMeshProUGUI>();
         build.text = colony.selectedProduction;
@@ -32,5 +39,24 @@ public class CurrentProductionPanel : MonoBehaviour
         Transform turnsLeftTransform = transform.Find("TurnsLeft(Clone)");
         TextMeshProUGUI turnsLeft = turnsLeftTransform.GetComponent<TextMeshProUGUI>();
         turnsLeft.text = colony.turnsLeft.ToString();
+
+        if (colony.turnsLeft == 0)
+        {
+            build.text = "";
+            turnsLeft.text = "";
+
+            productions = ColonyProductionsPanel.CreateProductions();
+
+            Production? currentProduction = productions.FirstOrDefault(p => p.productionName == colony.selectedProduction);
+
+            if (currentProduction is null)
+            {
+                Debug.LogError("Cannot find currentproduction in production list (add it to CreateProductions())");
+            }
+
+            colony.finishedProductions.Add(currentProduction);
+
+            XmlManager.Save(colony);
+        }
     }
 }

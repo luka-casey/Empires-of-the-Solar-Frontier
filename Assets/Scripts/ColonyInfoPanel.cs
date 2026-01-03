@@ -20,9 +20,9 @@ public class ColonyInfoPanel : MonoBehaviour
 
     public void UpdateText()
     {
-        if (colony.buildings != null)
+        if (colony.finishedProductions != null)
         {
-            foreach(Building building in colony.buildings)
+            foreach(Production building in colony.finishedProductions)
             {
                 ApplyBuildingYieldsToCity(building, this.colony);
             }
@@ -35,20 +35,20 @@ public class ColonyInfoPanel : MonoBehaviour
         }
     }
 
-    public static void ApplyBuildingYieldsToCity(Building building, Colony colony)
+    public static void ApplyBuildingYieldsToCity(Production production, Colony colony)
     {
-        switch (building.yieldType)
+        switch (production.yieldType)
         {
             case YieldTypeEnum.Credits:
-                colony.income += building.yieldValue;
+                colony.income += production.yieldValue;
                 break;
 
             case YieldTypeEnum.Production:
-                colony.production = building.yieldValue; 
+                colony.production = production.yieldValue; 
                 break;
 
             case YieldTypeEnum.Science:
-                colony.science += building.yieldValue;
+                colony.science += production.yieldValue;
                 break;
 
             default:

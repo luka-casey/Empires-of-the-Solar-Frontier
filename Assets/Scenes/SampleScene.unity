@@ -3316,8 +3316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetClick2D
   sceneToLoad: EarthPlanetView
-  zoomDuration: 0.8
-  targetZoom: 1.5
+  zoomDuration: 0
+  targetZoom: 0
 --- !u!1 &1012865226
 GameObject:
   m_ObjectHideFlags: 0

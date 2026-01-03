@@ -20,42 +20,36 @@ public static class XmlManager
 
     public static void CreateNewColony()
     {
-        #region NewColonyObject
+        // #region NewColonyObject
 
-        var buildingsData = new List<Building>
-        {
-            new Building("House", "+3 Prod", YieldTypeEnum.Production, 3),
-            new Building("Shop", "+3 Prod", YieldTypeEnum.Production, 3)
-        };
+        // var productionData = new List<Production>
+        // {
+        //     new Production(7, "Solder", "5", ProductionTypeEnum.Unit),
+        //     new Production(7, "Ship", "9", ProductionTypeEnum.Unit)
+        // };
 
-        var productionData = new List<Production>
-        {
-            new Production(7, "Solder", "5", ProductionTypeEnum.Unit),
-            new Production(7, "Ship", "9", ProductionTypeEnum.Unit)
-        };
+        // var newColonyObject = new Colony
+        // {
+        //     //colonyId = 1,
+        //     //colonyName = "Victoria",
+        //     population = 3,
+        //     income = 3,
+        //     expenses = 3,
+        //     production = 3,
+        //     science = 3,
+        //     history = "3",
+        //     buildings = buildingsData,
+        //     productions = productionData
+        // };
 
-        var newColonyObject = new Colony
-        {
-            //colonyId = 1,
-            //colonyName = "Victoria",
-            population = 3,
-            income = 3,
-            expenses = 3,
-            production = 3,
-            science = 3,
-            history = "3",
-            buildings = buildingsData,
-            productions = productionData
-        };
-
-        #endregion
+        // #endregion
             
-        var serializer = new XmlSerializer(typeof(Colony));
+        // var serializer = new XmlSerializer(typeof(Colony));
 
-        using var stream = new FileStream(FilePath, FileMode.Create);
-        serializer.Serialize(stream, newColonyObject);
+        // using var stream = new FileStream(FilePath, FileMode.Create);
+        // serializer.Serialize(stream, newColonyObject);
 
-        Debug.Log($"Save written to:\n{FilePath}");
+        // Debug.Log($"Save written to:\n{FilePath}");
     }
 
     public static Colony Load()

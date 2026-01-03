@@ -11,6 +11,11 @@ public class PlanetColonyManager : MonoBehaviour
 
     public bool hasColony = false;
 
+    void Update()
+    {
+        this.EstablishColony();        
+    }
+
     public void EstablishColony()
     {
         if (hasColony) return;

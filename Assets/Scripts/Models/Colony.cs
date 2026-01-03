@@ -10,7 +10,7 @@ public class Colony
     public int production; 
     public int science; 
     public string history;
-    public List<Building>? buildings; 
+    public List<Production>? finishedProductions; 
     public List<Production>? productions; 
     public string selectedProduction; 
     public int turnsLeft;

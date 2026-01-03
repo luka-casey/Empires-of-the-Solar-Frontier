@@ -232,7 +232,6 @@ GameObject:
   - component: {fileID: 470607656}
   - component: {fileID: 470607655}
   - component: {fileID: 470607657}
-  - component: {fileID: 470607658}
   - component: {fileID: 470607659}
   m_Layer: 0
   m_Name: Earth
@@ -332,18 +331,6 @@ MonoBehaviour:
   planetPanelsPrefab: {fileID: 6551235883058589072, guid: 8340df20221874c4d8b9a908e8d9c0c8, type: 3}
   colonyIconSpawnPoint: {fileID: 1921557384}
   hasColony: 0
---- !u!114 &470607658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 470607654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c937a316aa140da9d36c1f3bb65e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DummySaveRunner
 --- !u!114 &470607659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,7 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneZoomIn
   startZoom: 10
   targetZoom: 4.9
-  zoomDuration: 0.4
+  zoomDuration: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

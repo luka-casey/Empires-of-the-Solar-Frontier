@@ -29,11 +29,11 @@ public class ColonyHoverUI : MonoBehaviour
 
     void UpdateText()
     {
-        if (colony.buildings != null)
+        if (colony.finishedProductions != null)
         {
-            foreach(Building building in colony.buildings)
+            foreach(Production finishedProduction in colony.finishedProductions)
             {
-                //ColonyInfoPanel.ApplyBuildingYieldsToCity(building, colony);
+                ColonyInfoPanel.ApplyBuildingYieldsToCity(finishedProduction, colony);
             }
 
             populationText.text = $"Population: {colony.population}";
