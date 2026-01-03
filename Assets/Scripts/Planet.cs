@@ -4,11 +4,14 @@ public class Planet : MonoBehaviour
 {
     public Transform orbit;
 
-    void OnMouseDown()
+    void OnMouseOver()
     {
-        if (ShipSelection.selectedShip == null) return;
+        if (!Input.GetMouseButtonDown(1))
+            return;
 
-        // Queue the planet as the next target
+        if (ShipSelection.selectedShip == null)
+            return;
+
         ShipSelection.selectedShip.QueueMove(orbit);
     }
 }

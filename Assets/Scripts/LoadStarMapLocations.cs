@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -6,9 +7,24 @@ public class LoadStarMapLocations : MonoBehaviour
 {
     void OnMouseDown()
     {
+        this.LoadStarMapDataToScene();
+    }
+
+    public void LoadStarMapDataToScene()
+    {
         StarMapSaveData starMapSaveData = StarMapXmlManager.Load();
 
         ApplyStarMapSaveDataToUnity(starMapSaveData);
+
+        Turn turnObject = TurnXmlManager.Load();
+        GameObject shipObj = GameObject.Find("Turn_Counter");
+
+        TextMeshProUGUI x = shipObj.GetComponent<TextMeshProUGUI>();
+        x.text = "Turn " + turnObject.turn;
+
+        //NextTurnButton[] nextTurnButtons = Object.FindObjectsOfType<NextTurnButton>();
+        //nextTurnButtons[0].cu
+        NextTurnButton.CurrentTurn = turnObject.turn;
     }
 
     private void ApplyStarMapSaveDataToUnity(StarMapSaveData starMapSaveData)

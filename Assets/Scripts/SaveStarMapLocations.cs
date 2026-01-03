@@ -4,12 +4,35 @@ using UnityEngine;
 
 public class SaveStarMapLocations : MonoBehaviour
 {
-
     void OnMouseDown()
+    {
+        this.Save();
+    }
+
+    public void Save()
     {
         StarMapSaveData starMapSaveData = Collect();
 
         StarMapXmlManager.Save(starMapSaveData);
+
+        SaveTurn();
+
+        SaveColonyInfo();
+    }
+
+    public void SaveColonyInfo()
+    {
+        //Todo
+    }
+
+    public void SaveTurn()
+    {
+        Turn turnObject = new Turn()
+        {
+            turn = NextTurnButton.CurrentTurn
+        };
+        
+        TurnXmlManager.Save(turnObject);
     }
 
     public StarMapSaveData Collect()

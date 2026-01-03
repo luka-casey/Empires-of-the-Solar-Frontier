@@ -97,16 +97,16 @@ public class ShipOrbit : MonoBehaviour
 
         Vector2 shipPosition = new Vector2(transform.position.x, transform.position.y);
 
-        Debug.Log(
-            $"[{name}] Ship EndTurn Data → " +
-            $"Position: {shipPosition}, " +
-            $"CurrentOrbit: {currentOrbit?.name ?? "null"}, " +
-            $"TargetOrbit: {targetOrbit?.name ?? "null"}, " +
-            $"QueuedOrbit: {queuedOrbit?.name ?? "null"}, " +
-            $"State: {state}, " +
-            $"TurnTimer: {turnTimer:F2}, " +
-            $"TurnActive: {turnActive}"
-        );
+        // Debug.Log(
+        //     $"[{name}] Ship EndTurn Data → " +
+        //     $"Position: {shipPosition}, " +
+        //     $"CurrentOrbit: {currentOrbit?.name ?? "null"}, " +
+        //     $"TargetOrbit: {targetOrbit?.name ?? "null"}, " +
+        //     $"QueuedOrbit: {queuedOrbit?.name ?? "null"}, " +
+        //     $"State: {state}, " +
+        //     $"TurnTimer: {turnTimer:F2}, " +
+        //     $"TurnActive: {turnActive}"
+        // );
 
         if (state == ShipState.Orbiting && targetOrbit == null)
         {

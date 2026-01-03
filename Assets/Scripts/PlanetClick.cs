@@ -17,6 +17,9 @@ public class PlanetClick2D : MonoBehaviour
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
+            SaveStarMapLocations saveStarMapLocations = new SaveStarMapLocations();
+            saveStarMapLocations.Save();
+
             Vector2 mouseWorldPos =
                 Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 

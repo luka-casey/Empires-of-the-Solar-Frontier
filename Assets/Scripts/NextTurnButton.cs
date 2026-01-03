@@ -3,7 +3,7 @@ using TMPro;
 
 public class NextTurnButton : MonoBehaviour
 {
-    public static int CurrentTurn = 1;
+    public static int CurrentTurn;
 
     [Header("References")]
     public ShipOrbit ship;
@@ -11,11 +11,17 @@ public class NextTurnButton : MonoBehaviour
 
     void Start()
     {
-        UpdateTurnText();
+        //Turn turnObject = TurnXmlManager.Load();
+        //CurrentTurn = turnObject.turn;
+        //UpdateTurnText();
     }
 
     void OnMouseDown()
     {
+        //var turnObject = TurnXmlManager.Load();
+
+        //CurrentTurn = turnObject.turn;
+
         CurrentTurn++;
 
         Debug.Log($"=== TURN {CurrentTurn} ===");
