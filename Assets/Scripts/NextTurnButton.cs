@@ -25,7 +25,12 @@ public class NextTurnButton : MonoBehaviour
         CurrentTurn++;
 
         Colony colony = XmlManager.Load();
-        colony.turnsLeft = colony.turnsLeft - 1;
+        
+        if (colony.turnsLeft > -1 && colony.selectedProduction != "")
+        {
+            colony.turnsLeft = colony.turnsLeft - 1;
+        }
+
         XmlManager.Save(colony);
 
         Debug.Log($"=== TURN {CurrentTurn} ===");

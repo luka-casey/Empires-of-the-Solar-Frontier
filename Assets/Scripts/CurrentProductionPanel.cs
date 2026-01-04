@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class CurrentProductionPanel : MonoBehaviour
 {
@@ -40,7 +41,23 @@ public class CurrentProductionPanel : MonoBehaviour
         TextMeshProUGUI turnsLeft = turnsLeftTransform.GetComponent<TextMeshProUGUI>();
         turnsLeft.text = colony.turnsLeft.ToString();
 
-        if (colony.turnsLeft == 0)
+        if (colony.selectedProduction is not null && colony.selectedProduction != "")
+        {
+            var temp = ColonyProductionsPanel.CreateProductions();
+            Production? currentProduction = temp.FirstOrDefault(p => p.productionName == colony.selectedProduction);
+            Sprite loadedSprite = Resources.Load<Sprite>($"imageAssets/{currentProduction.imageName}");
+
+            Transform imageTransform = transform.Find("Image"); 
+            Image image = imageTransform.GetComponent<Image>();
+            image.sprite = loadedSprite;
+        }
+
+        if (colony.turnsLeft == 0 || colony.turnsLeft < 0)
+        {
+            turnsLeft.text = "";
+        }
+
+        if (colony.turnsLeft == 0 && colony.selectedProduction != "")
         {
             build.text = "";
             turnsLeft.text = "";
@@ -55,6 +72,7 @@ public class CurrentProductionPanel : MonoBehaviour
             }
 
             colony.finishedProductions.Add(currentProduction);
+            colony.selectedProduction = "";
 
             XmlManager.Save(colony);
         }

@@ -3,15 +3,23 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIHoverHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class UIHoverHighlight : MonoBehaviour,
+    IPointerEnterHandler,
+    IPointerExitHandler,
+    IPointerClickHandler
 {
     private Colony colony;
     private Image image;
     private Color originalColor;
+
     private TextMeshProUGUI productionName;
     private TextMeshProUGUI turnsLeft;
-    private CurrentProductionPanel productionPanel;
-    [SerializeField] private Color hoverColor = Color.cyan;
+
+    private CurrentProductionPanel currentProductionPanel;
+
+    private Color hoverColor = Color.grey;
+    private Color selectedColor = Color.grey;
+    private Color defaultTextColor = Color.white;
 
     void Awake()
     {
@@ -26,28 +34,29 @@ public class UIHoverHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         colony = XmlManager.Load();
 
+        // Production name
         Transform label = transform.Find("Label(Clone)");
         if (label != null)
         {
             productionName = label.GetComponent<TextMeshProUGUI>();
-
             if (productionName == null)
-                Debug.LogError("No TextMeshProUGUI child named 'Label(Clone)' found under " + gameObject.name);
+                Debug.LogError("Label(Clone) is missing TextMeshProUGUI");
         }
 
+        // Turns left
         Transform value = transform.Find("Value(Clone)");
         if (value != null)
         {
             turnsLeft = value.GetComponent<TextMeshProUGUI>();
-
             if (turnsLeft == null)
-                Debug.LogError("No TextMeshProUGUI child named 'TurnsLeft(Clone)' found under " + gameObject.name);
+                Debug.LogError("Value(Clone) is missing TextMeshProUGUI");
         }
 
-        productionPanel = FindObjectOfType<CurrentProductionPanel>();
+        currentProductionPanel = FindObjectOfType<CurrentProductionPanel>();
+        if (currentProductionPanel == null)
+            Debug.LogError("CurrentProductionPanel not found");
 
-        if (productionPanel == null)
-            Debug.LogError("CurrentProductionPanel not found in scene");
+        RefreshSelection();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -60,14 +69,53 @@ public class UIHoverHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         if (image != null)
             image.color = originalColor;
+
+        RefreshSelection();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        colony.selectedProduction = productionName.text;
-        colony.turnsLeft = int.Parse(turnsLeft.text);
+        colony = XmlManager.Load();
+
+        if (productionName == null || turnsLeft == null)
+            return;
+
+        if (productionName.text == colony.selectedProduction)
+        {
+            colony.selectedProduction = "";
+            colony.turnsLeft = 0;
+        }
+        else
+        {
+            colony.selectedProduction = productionName.text;
+            colony.turnsLeft = int.Parse(turnsLeft.text);
+        }
 
         XmlManager.Save(colony);
-        productionPanel.Refresh();
+        currentProductionPanel.Refresh();
+
+        // 🔁 Force ALL items to refresh
+        foreach (UIHoverHighlight item in FindObjectsOfType<UIHoverHighlight>())
+        {
+            item.RefreshSelection();
+        }
+    }
+
+    public void RefreshSelection()
+    {
+        colony = XmlManager.Load();
+        UpdateProductionTextColors();
+    }
+
+    private void UpdateProductionTextColors()
+    {
+        bool isSelected = productionName != null &&
+                          productionName.text == colony.selectedProduction;
+
+        if (productionName != null)
+            productionName.color = isSelected ? selectedColor : defaultTextColor;
+
+        if (turnsLeft != null)
+            turnsLeft.color = isSelected ? selectedColor : defaultTextColor;
     }
 }

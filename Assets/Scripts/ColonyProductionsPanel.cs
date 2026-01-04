@@ -25,6 +25,8 @@ public class ColonyProductionsPanel : MonoBehaviour
 
     public void UpdateText()
     {
+        colony = XmlManager.Load();
+
         if (colony.productions is null)
         {
             colony.productions = CreateProductions();
@@ -33,9 +35,29 @@ public class ColonyProductionsPanel : MonoBehaviour
         List<Production> units = new List<Production>();
         List<Production> buildings = new List<Production>();
 
-        //Get seperate lists for units and buildings
-        units = colony.productions.Where(p => p.productionType == ProductionTypeEnum.Unit).ToList();
-        buildings = colony.productions.Where(p => p.productionType == ProductionTypeEnum.Building).ToList();
+        var validProdoctions = new List<Production>();
+
+        foreach (Production production in colony.productions)
+        {
+            if (colony.finishedProductions != null && !colony.finishedProductions.Any(p => p is not null && p.id == production.id))
+            {
+                validProdoctions.Add(production);
+            }
+        }
+
+        units = validProdoctions
+            .Where(p => p.productionType == ProductionTypeEnum.Unit) // && p.productionName != colony.selectedProduction
+            .ToList();
+
+        buildings = validProdoctions
+            .Where(p => p.productionType == ProductionTypeEnum.Building) // && p.productionName != colony.selectedProduction
+            .ToList();
+
+        //refersh Productions Panel
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
         
         //Create wrapper objects
         GameObject unitObject = Instantiate(unitPrefab, transform);
@@ -82,11 +104,14 @@ public class ColonyProductionsPanel : MonoBehaviour
         // productions.Add(scientist);
 
         //Buildings
-        Production greenhouse = new Production(5, "Greenhouse", "16 Turns", ProductionTypeEnum.Building, "+5 Food", YieldTypeEnum.Food, 5);
+        Production greenhouse = new Production(1, "Greenhouse", "3", ProductionTypeEnum.Building, "+6 Population", YieldTypeEnum.Population, 6, "Greenhouse");
         productions.Add(greenhouse);
 
-        Production mine = new Production(5, "Mine", "13 Turns", ProductionTypeEnum.Building, "test", YieldTypeEnum.Food, 5);
+        Production mine = new Production(2, "Mine", "3", ProductionTypeEnum.Building, "+7 Production", YieldTypeEnum.Population, 7, "Mine");
         productions.Add(mine);
+
+        Production laboratory = new Production(3, "Laboratory", "3", ProductionTypeEnum.Building, "+10 Science", YieldTypeEnum.Population, 10, "Lab");
+        productions.Add(laboratory);
 
         // Production spaceshipFactory = new Production(6, "Spaceship Factory", "70 Turns", ProductionTypeEnum.Building);
         // productions.Add(spaceshipFactory);

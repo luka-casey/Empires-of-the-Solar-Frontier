@@ -25,10 +25,10 @@ public class ColonyClick : MonoBehaviour
     {
         Colony colony = new Colony();
 
-        populationText.text = $"Population: {colony.population}";
-        incomeText.text = $"Income: {colony.income}";
-        expensesText.text = $"Expenses: {colony.expenses}";
-        productionText.text = $"Production: {colony.production}";
-        scienceText.text = $"Science: {colony.science}";
+        populationText.text = $"Population: {colony.populationBaseValue}";
+        incomeText.text = $"Income: {colony.incomeBaseValue}";
+        expensesText.text = $"Expenses: {colony.expensesBaseValue}";
+        productionText.text = $"Production: {colony.productionBaseValue}";
+        scienceText.text = $"Science: {colony.scienceBaseValue}";
     }
 }

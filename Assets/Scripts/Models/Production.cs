@@ -8,12 +8,13 @@ public class Production
     public string abilityText;
     public YieldTypeEnum yieldType;
     public int yieldValue;
+    public string? imageName;
 
     public Production()
     {
     }
 
-    public Production(int Id, string ProductionName, string Turns, ProductionTypeEnum ProductionType, string AbilityText, YieldTypeEnum YieldType, int YieldValue)
+    public Production(int Id, string ProductionName, string Turns, ProductionTypeEnum ProductionType, string AbilityText, YieldTypeEnum YieldType, int YieldValue, string? ImageName)
     {
         this.productionName = ProductionName;
         this.turns = Turns;
@@ -22,5 +23,6 @@ public class Production
         this.abilityText = AbilityText;
         this.yieldType = YieldType;
         this.yieldValue = YieldValue;
+        this.imageName = ImageName;
     }
 }

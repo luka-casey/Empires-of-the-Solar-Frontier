@@ -24,15 +24,33 @@ public class ColonyBuildingsPanel : MonoBehaviour
         {
             foreach (Production production in colony.finishedProductions)
             {
-                // Duplicate the existing GameObject
-                GameObject buildingRow = Instantiate(buildingRowPrefab, transform);
+                if (production is not null)
+                {
+                    // Duplicate the existing GameObject
+                    GameObject buildingRow = Instantiate(buildingRowPrefab, transform);
 
-                TextMeshProUGUI buildingName = Instantiate(buildingNamePrefab, buildingRow.transform);
-                TextMeshProUGUI abilityText = Instantiate(abilityTextPrefab, buildingRow.transform);
+                    TextMeshProUGUI buildingName = Instantiate(buildingNamePrefab, buildingRow.transform);
+                    TextMeshProUGUI abilityText = Instantiate(abilityTextPrefab, buildingRow.transform);
 
-                buildingName.text = production.productionName;
-                abilityText.text = production.abilityText;
+                    buildingName.text = production.productionName;
+                    abilityText.text = production.abilityText;
+
+                    colony.incomeTotal = 0;
+                    colony.productionTotal = 0;
+                    colony.scienceTotal = 0;
+                    colony.populationTotal = 0;
+
+                    ColonyInfoPanel.ApplyBuildingYieldsToCity(production, this.colony);
+                }
             }
+
+            ColonyInfoPanel[] colonyInfoPanels = Object.FindObjectsOfType<ColonyInfoPanel>();
+
+            colonyInfoPanels[0].populationValue.text = (colony.populationBaseValue + colony.populationTotal).ToString();
+            colonyInfoPanels[0].incomeValue.text = (colony.incomeBaseValue + colony.incomeTotal).ToString();
+            colonyInfoPanels[0].expensesValue.text = (colony.expensesBaseValue + colony.expensesTotal).ToString();
+            colonyInfoPanels[0].productionValue.text = (colony.productionBaseValue + colony.productionTotal).ToString();
+            colonyInfoPanels[0].scienceValue.text = (colony.scienceBaseValue + colony.scienceTotal).ToString();
         }
     }
 

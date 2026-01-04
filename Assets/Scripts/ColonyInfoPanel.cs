@@ -22,16 +22,24 @@ public class ColonyInfoPanel : MonoBehaviour
     {
         if (colony.finishedProductions != null)
         {
-            foreach(Production building in colony.finishedProductions)
+            foreach(Production production in colony.finishedProductions)
             {
-                ApplyBuildingYieldsToCity(building, this.colony);
+                if (production is not null)
+                {
+                    colony.incomeTotal = 0;
+                    colony.productionTotal = 0;
+                    colony.scienceTotal = 0;
+                    colony.populationTotal = 0;
+
+                    ApplyBuildingYieldsToCity(production, this.colony);
+                }
             }
 
-            populationValue.text = colony.population.ToString();
-            incomeValue.text = colony.income.ToString();
-            expensesValue.text = colony.expenses.ToString();
-            productionValue.text = colony.production.ToString();
-            scienceValue.text = colony.science.ToString();
+            populationValue.text = (colony.populationBaseValue + colony.populationTotal).ToString();
+            incomeValue.text = (colony.incomeBaseValue + colony.incomeTotal).ToString();
+            expensesValue.text = (colony.expensesBaseValue + colony.expensesTotal).ToString();
+            productionValue.text = (colony.productionBaseValue + colony.productionTotal).ToString();
+            scienceValue.text = (colony.scienceBaseValue + colony.scienceTotal).ToString();
         }
     }
 
@@ -40,15 +48,20 @@ public class ColonyInfoPanel : MonoBehaviour
         switch (production.yieldType)
         {
             case YieldTypeEnum.Credits:
-                colony.income += production.yieldValue;
+                colony.incomeTotal += production.yieldValue;
                 break;
 
             case YieldTypeEnum.Production:
-                colony.production = production.yieldValue; 
+                colony.productionTotal = production.yieldValue; 
                 break;
 
             case YieldTypeEnum.Science:
-                colony.science += production.yieldValue;
+                colony.scienceTotal += production.yieldValue;
+                break;
+
+            case YieldTypeEnum.Population:
+            case YieldTypeEnum.Food:
+                colony.populationTotal += production.yieldValue;
                 break;
 
             default:
@@ -56,5 +69,4 @@ public class ColonyInfoPanel : MonoBehaviour
                 break;
         }
     }
-
 }

@@ -29,18 +29,29 @@ public class ColonyHoverUI : MonoBehaviour
 
     void UpdateText()
     {
+        colony = XmlManager.Load();
+
         if (colony.finishedProductions != null)
         {
             foreach(Production finishedProduction in colony.finishedProductions)
             {
-                ColonyInfoPanel.ApplyBuildingYieldsToCity(finishedProduction, colony);
+                if (finishedProduction is not null)
+                {
+                    colony.populationTotal = 0;
+                    colony.incomeTotal = 0;
+                    colony.expensesTotal = 0;
+                    colony.productionTotal = 0;
+                    colony.scienceTotal = 0;
+
+                    ColonyInfoPanel.ApplyBuildingYieldsToCity(finishedProduction, colony);
+                }
             }
 
-            populationText.text = $"Population: {colony.population}";
-            incomeText.text = $"Income: {colony.income}";
-            expensesText.text = $"Expenses: {colony.expenses}";
-            productionText.text = $"Production: {colony.production}";
-            scienceText.text = $"Science: {colony.science}";
+            populationText.text = $"Population: {colony.populationBaseValue + colony.populationTotal}";
+            incomeText.text = $"Income: {colony.incomeBaseValue + colony.incomeTotal}";
+            expensesText.text = $"Expenses: {colony.expensesBaseValue + colony.expensesTotal}";
+            productionText.text = $"Production: {colony.productionBaseValue + colony.productionTotal}";
+            scienceText.text = $"Science: {colony.scienceBaseValue + colony.scienceTotal}";
         }
     }
 }
