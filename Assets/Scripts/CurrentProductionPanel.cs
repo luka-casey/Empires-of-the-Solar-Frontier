@@ -50,11 +50,18 @@ public class CurrentProductionPanel : MonoBehaviour
             Transform imageTransform = transform.Find("Image"); 
             Image image = imageTransform.GetComponent<Image>();
             image.sprite = loadedSprite;
+            image.color = Color.cyan;
         }
 
         if (colony.turnsLeft == 0 || colony.turnsLeft < 0)
         {
             turnsLeft.text = "";
+
+            Sprite loadedSprite = Resources.Load<Sprite>($"imageAssets/SelectProduction");
+            GameObject imageTransform = GameObject.Find("Image"); 
+            Image image = imageTransform.GetComponent<Image>();
+            image.sprite = loadedSprite;
+            image.color = Color.cyan;
         }
 
         if (colony.turnsLeft == 0 && colony.selectedProduction != "")

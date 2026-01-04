@@ -84,6 +84,12 @@ public class UIHoverHighlight : MonoBehaviour,
         {
             colony.selectedProduction = "";
             colony.turnsLeft = 0;
+
+            Sprite loadedSprite = Resources.Load<Sprite>($"imageAssets/SelectProduction");
+            GameObject imageTransform = GameObject.Find("Image"); 
+            Image image = imageTransform.GetComponent<Image>();
+            image.sprite = loadedSprite;
+            image.color = Color.cyan;
         }
         else
         {
