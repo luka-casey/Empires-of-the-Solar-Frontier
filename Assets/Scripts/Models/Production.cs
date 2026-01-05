@@ -9,12 +9,14 @@ public class Production
     public YieldTypeEnum yieldType;
     public int yieldValue;
     public string? imageName;
+    public int requiredProduction;
+    public int productionMeter;
 
     public Production()
     {
     }
 
-    public Production(int Id, string ProductionName, string Turns, ProductionTypeEnum ProductionType, string AbilityText, YieldTypeEnum YieldType, int YieldValue, string? ImageName)
+    public Production(int Id, string ProductionName, string Turns, ProductionTypeEnum ProductionType, string AbilityText, YieldTypeEnum YieldType, int YieldValue, string? ImageName, int RequiredProduction, int ProductionMeter)
     {
         this.productionName = ProductionName;
         this.turns = Turns;
@@ -24,5 +26,7 @@ public class Production
         this.yieldType = YieldType;
         this.yieldValue = YieldValue;
         this.imageName = ImageName;
+        this.requiredProduction = RequiredProduction;
+        this.productionMeter = ProductionMeter;
     }
 }

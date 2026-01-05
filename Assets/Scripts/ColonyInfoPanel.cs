@@ -22,15 +22,15 @@ public class ColonyInfoPanel : MonoBehaviour
     {
         if (colony.finishedProductions != null)
         {
+            colony.incomeTotal = 0;
+            colony.productionTotal = 0;
+            colony.scienceTotal = 0;
+            colony.populationTotal = 0;
+
             foreach(Production production in colony.finishedProductions)
             {
                 if (production is not null)
                 {
-                    colony.incomeTotal = 0;
-                    colony.productionTotal = 0;
-                    colony.scienceTotal = 0;
-                    colony.populationTotal = 0;
-
                     ApplyBuildingYieldsToCity(production, this.colony);
                 }
             }
@@ -40,6 +40,8 @@ public class ColonyInfoPanel : MonoBehaviour
             expensesValue.text = (colony.expensesBaseValue + colony.expensesTotal).ToString();
             productionValue.text = (colony.productionBaseValue + colony.productionTotal).ToString();
             scienceValue.text = (colony.scienceBaseValue + colony.scienceTotal).ToString();
+
+            XmlManager.Save(colony);
         }
     }
 

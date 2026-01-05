@@ -52,14 +52,14 @@ public class LoadStarMapLocations : MonoBehaviour
             GameObject shipObj = GameObject.Find(shipData.shipName);
             if (shipObj == null) 
             {
-                Debug.LogWarning($"[Load] Ship {shipData.shipName} not found in scene.");
+                //Debug.LogWarning($"[Load] Ship {shipData.shipName} not found in scene.");
                 continue;
             }
 
             ShipOrbit shipOrbit = shipObj.GetComponent<ShipOrbit>();
             if (shipOrbit == null) 
             {
-                Debug.LogWarning($"[Load] ShipOrbit component missing on {shipData.shipName}");
+                //Debug.LogWarning($"[Load] ShipOrbit component missing on {shipData.shipName}");
                 continue;
             }
 
@@ -82,7 +82,7 @@ public class LoadStarMapLocations : MonoBehaviour
             shipOrbit.turnTimer = shipData.turnTimer;
             shipOrbit.turnActive = shipData.turnActive;
 
-            Debug.Log($"[Load] Ship {shipData.shipName} restored at {shipObj.transform.position} with state {shipOrbit.state}");
+            //Debug.Log($"[Load] Ship {shipData.shipName} restored at {shipObj.transform.position} with state {shipOrbit.state}");
         }
     }
 

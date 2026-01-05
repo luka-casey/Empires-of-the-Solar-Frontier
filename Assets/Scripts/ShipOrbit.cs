@@ -34,7 +34,7 @@ public class ShipOrbit : MonoBehaviour
         // ✅ Place ship correctly at game start
         PlaceOnOrbit();
 
-        Debug.Log($"[{name}] Start() → Initial orbit = {currentOrbit?.name}");
+        //Debug.Log($"[{name}] Start() → Initial orbit = {currentOrbit?.name}");
     }
 
     // ───────── UPDATE LOOP ─────────
@@ -65,7 +65,7 @@ public class ShipOrbit : MonoBehaviour
 
     public void StartTurn()
     {
-        Debug.Log($"[{name}] StartTurn()");
+        //Debug.Log($"[{name}] StartTurn()");
 
         turnTimer = 0f;
         turnActive = true;
@@ -73,7 +73,7 @@ public class ShipOrbit : MonoBehaviour
         if (targetOrbit != null)
         {
             state = ShipState.Traveling;
-            Debug.Log($"[{name}] Resuming travel → {targetOrbit.name}");
+            //Debug.Log($"[{name}] Resuming travel → {targetOrbit.name}");
         }
         else if (queuedOrbit != null)
         {
@@ -81,18 +81,18 @@ public class ShipOrbit : MonoBehaviour
             queuedOrbit = null;
             state = ShipState.Traveling;
 
-            Debug.Log($"[{name}] Promoted queued orbit → {targetOrbit.name}");
+            //Debug.Log($"[{name}] Promoted queued orbit → {targetOrbit.name}");
         }
         else
         {
             state = ShipState.Orbiting;
-            Debug.Log($"[{name}] No queued move or travel this turn");
+            //Debug.Log($"[{name}] No queued move or travel this turn");
         }
     }
 
     private void EndTurn()
     {
-        Debug.Log($"[{name}] EndTurn()");
+        //Debug.Log($"[{name}] EndTurn()");
         turnActive = false;
 
         Vector2 shipPosition = new Vector2(transform.position.x, transform.position.y);
@@ -110,7 +110,7 @@ public class ShipOrbit : MonoBehaviour
 
         if (state == ShipState.Orbiting && targetOrbit == null)
         {
-            Debug.Log($"[{name}] Ship now locked into orbit around {currentOrbit.name}");
+            //Debug.Log($"[{name}] Ship now locked into orbit around {currentOrbit.name}");
         }
 
         if (ShipSelection.selectedShip == this)
@@ -175,7 +175,7 @@ public class ShipOrbit : MonoBehaviour
 
         if (dist <= orbitRadius)
         {
-            Debug.Log($"[{name}] Reached {targetOrbit.name}");
+            //Debug.Log($"[{name}] Reached {targetOrbit.name}");
 
             currentOrbit = targetOrbit;
             targetOrbit = null;
@@ -187,7 +187,7 @@ public class ShipOrbit : MonoBehaviour
 
     public void QueueMove(Transform orbit)
     {
-        Debug.Log($"[{name}] QueueMove({orbit.name})");
+        //Debug.Log($"[{name}] QueueMove({orbit.name})");
 
         if (orbit == currentOrbit)
             return;

@@ -22,6 +22,11 @@ public class ColonyBuildingsPanel : MonoBehaviour
 
         if (colony.finishedProductions is not null)
         {
+            colony.incomeTotal = 0;
+            colony.productionTotal = 0;
+            colony.scienceTotal = 0;
+            colony.populationTotal = 0;
+
             foreach (Production production in colony.finishedProductions)
             {
                 if (production is not null)
@@ -34,11 +39,6 @@ public class ColonyBuildingsPanel : MonoBehaviour
 
                     buildingName.text = production.productionName;
                     abilityText.text = production.abilityText;
-
-                    colony.incomeTotal = 0;
-                    colony.productionTotal = 0;
-                    colony.scienceTotal = 0;
-                    colony.populationTotal = 0;
 
                     ColonyInfoPanel.ApplyBuildingYieldsToCity(production, this.colony);
                 }

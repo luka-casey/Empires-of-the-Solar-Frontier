@@ -25,7 +25,7 @@ public class UIHoverHighlight : MonoBehaviour,
     {
         image = GetComponent<Image>();
         if (image == null)
-            Debug.LogError("UIHoverHighlight requires an Image component");
+            //Debug.LogError("UIHoverHighlight requires an Image component");
 
         originalColor = image.color;
     }
@@ -39,8 +39,8 @@ public class UIHoverHighlight : MonoBehaviour,
         if (label != null)
         {
             productionName = label.GetComponent<TextMeshProUGUI>();
-            if (productionName == null)
-                Debug.LogError("Label(Clone) is missing TextMeshProUGUI");
+            //if (productionName == null)
+                //Debug.LogError("Label(Clone) is missing TextMeshProUGUI");
         }
 
         // Turns left
@@ -48,13 +48,13 @@ public class UIHoverHighlight : MonoBehaviour,
         if (value != null)
         {
             turnsLeft = value.GetComponent<TextMeshProUGUI>();
-            if (turnsLeft == null)
-                Debug.LogError("Value(Clone) is missing TextMeshProUGUI");
+            //if (turnsLeft == null)
+                //Debug.LogError("Value(Clone) is missing TextMeshProUGUI");
         }
 
         currentProductionPanel = FindObjectOfType<CurrentProductionPanel>();
         if (currentProductionPanel == null)
-            Debug.LogError("CurrentProductionPanel not found");
+            //Debug.LogError("CurrentProductionPanel not found");
 
         RefreshSelection();
     }

@@ -75,10 +75,13 @@ public class CurrentProductionPanel : MonoBehaviour
 
             if (currentProduction is null)
             {
-                Debug.LogError("Cannot find currentproduction in production list (add it to CreateProductions())");
+                //Debug.LogError("Cannot find currentproduction in production list (add it to CreateProductions())");
             }
 
-            colony.finishedProductions.Add(currentProduction);
+            if (!colony.finishedProductions.Any(fp => fp.productionName == currentProduction.productionName))
+            {
+                colony.finishedProductions.Add(currentProduction);
+            }
             colony.selectedProduction = "";
 
             XmlManager.Save(colony);

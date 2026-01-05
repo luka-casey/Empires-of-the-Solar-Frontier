@@ -15,14 +15,14 @@ public static class TurnXmlManager
         using var stream = new FileStream(FilePath, FileMode.Create);
         serializer.Serialize(stream, turn);
 
-        Debug.Log($"Save written to:\n{FilePath}");
+        //Debug.Log($"Save written to:\n{FilePath}");
     }
 
     public static Turn Load()
     {
         if (!File.Exists(FilePath))
         {
-            Debug.LogError("Save file not found!");
+            //Debug.LogError("Save file not found!");
             return null;
         }
 

@@ -47,7 +47,7 @@ public class OrbitRotation : MonoBehaviour
 
             // Log Z rotation at the end of the turn
             float zRotation = Mathf.Round(transform.eulerAngles.z * 100f) / 100f;
-            Debug.Log($"[{name}] Rotation after turn: {zRotation}");
+            //Debug.Log($"[{name}] Rotation after turn: {zRotation}");
 
             return;
         }

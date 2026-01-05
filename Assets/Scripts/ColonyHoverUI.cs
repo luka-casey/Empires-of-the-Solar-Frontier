@@ -33,16 +33,16 @@ public class ColonyHoverUI : MonoBehaviour
 
         if (colony.finishedProductions != null)
         {
+            colony.populationTotal = 0;
+            colony.incomeTotal = 0;
+            colony.expensesTotal = 0;
+            colony.productionTotal = 0;
+            colony.scienceTotal = 0;
+            
             foreach(Production finishedProduction in colony.finishedProductions)
             {
                 if (finishedProduction is not null)
                 {
-                    colony.populationTotal = 0;
-                    colony.incomeTotal = 0;
-                    colony.expensesTotal = 0;
-                    colony.productionTotal = 0;
-                    colony.scienceTotal = 0;
-
                     ColonyInfoPanel.ApplyBuildingYieldsToCity(finishedProduction, colony);
                 }
             }

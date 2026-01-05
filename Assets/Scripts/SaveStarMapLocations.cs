@@ -64,9 +64,9 @@ public class SaveStarMapLocations : MonoBehaviour
 
             planetsLocationSaveData.Add(planetData);
 
-            Debug.Log(
-                $"[Save] Planet {planetData.planetOrbit} rotation Z: {planetData.rotationZCoordinate}"
-            );
+            // Debug.Log(
+            //     $"[Save] Planet {planetData.planetOrbit} rotation Z: {planetData.rotationZCoordinate}"
+            // );
         }
 
         return planetsLocationSaveData;
@@ -97,9 +97,9 @@ public class SaveStarMapLocations : MonoBehaviour
 
             shipsLocationSaveData.Add(shipData);
 
-            Debug.Log(
-                $"[Save] Ship {shipData.shipName} | State: {shipData.shipState} | Orbit: {shipData.currentOrbitName}"
-            );
+            // Debug.Log(
+            //     $"[Save] Ship {shipData.shipName} | State: {shipData.shipState} | Orbit: {shipData.currentOrbitName}"
+            // );
         }
 
         return shipsLocationSaveData;

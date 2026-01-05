@@ -9,7 +9,7 @@ public class testclass : MonoBehaviour
 
     public void LogSomething()
     {
-        Debug.Log("I CLicked!!!");
+        //Debug.Log("I CLicked!!!");
     }
 
 

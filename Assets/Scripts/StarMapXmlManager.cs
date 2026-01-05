@@ -14,14 +14,14 @@ public static class StarMapXmlManager
         using var stream = new FileStream(FilePath, FileMode.Create);
         serializer.Serialize(stream, starMapSaveData);
 
-        Debug.Log($"Save written to:\n{FilePath}");
+        //Debug.Log($"Save written to:\n{FilePath}");
     }
 
     public static StarMapSaveData Load()
     {
         if (!File.Exists(FilePath))
         {
-            Debug.LogError("Save file not found!");
+            //Debug.LogError("Save file not found!");
             return null;
         }
 

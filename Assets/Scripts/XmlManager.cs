@@ -15,7 +15,7 @@ public static class XmlManager
         using var stream = new FileStream(FilePath, FileMode.Create);
         serializer.Serialize(stream, colonyData);
 
-        Debug.Log($"Save written to:\n{FilePath}");
+        //Debug.Log($"Save written to:\n{FilePath}");
     }
 
     public static void CreateNewColony()
@@ -56,7 +56,7 @@ public static class XmlManager
     {
         if (!File.Exists(FilePath))
         {
-            Debug.LogError("Save file not found!");
+            //Debug.LogError("Save file not found!");
             return null;
         }
 

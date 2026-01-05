@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using System.Data.Common;
 
 public class ColonyProductionsPanel : MonoBehaviour
 {
@@ -20,6 +22,12 @@ public class ColonyProductionsPanel : MonoBehaviour
     void Start()
     {
         colony = XmlManager.Load();
+
+        if (colony.turnsLeft == -33)
+        {
+            NextTurnButton.UpdateProductionsTurns();
+        }
+
         UpdateText();
     }
 
@@ -95,6 +103,33 @@ public class ColonyProductionsPanel : MonoBehaviour
         }
     }
 
+    public static void UpdateProductionMeter(Colony colony, Production specificProduction)
+    {
+        colony.incomeTotal = 0;
+        colony.productionTotal = 0;
+        colony.scienceTotal = 0;
+        colony.populationTotal = 0;
+
+        foreach(Production production in colony.finishedProductions)
+        {
+            if (production is not null)
+            {
+                ColonyInfoPanel.ApplyBuildingYieldsToCity(production, colony);
+            }
+        }
+
+        int colonyTotalProductionPerTurn = colony.productionBaseValue + colony.productionTotal;
+
+        if (colony.selectedProduction == specificProduction.productionName && colony.turnsLeft != 0)
+        {
+            specificProduction.productionMeter += colonyTotalProductionPerTurn;
+        }
+        else if (colony.selectedProduction == "" && specificProduction.productionName != "" && colony.turnsLeft == 0)
+        {
+            specificProduction.productionMeter += colonyTotalProductionPerTurn;
+        }
+    }
+
     public static List<Production> CreateProductions()
     {
         List<Production> productions = new List<Production>();
@@ -113,13 +148,13 @@ public class ColonyProductionsPanel : MonoBehaviour
         // productions.Add(scientist);
 
         //Buildings
-        Production greenhouse = new Production(1, "Greenhouse", "3", ProductionTypeEnum.Building, "+6 Population", YieldTypeEnum.Population, 6, "Greenhouse");
+        Production greenhouse = new Production(1, "Greenhouse", "3", ProductionTypeEnum.Building, "+6 Population", YieldTypeEnum.Population, 6, "Greenhouse", 22, 0);
         productions.Add(greenhouse);
 
-        Production mine = new Production(2, "Mine", "3", ProductionTypeEnum.Building, "+7 Production", YieldTypeEnum.Production, 7, "Mine");
+        Production mine = new Production(2, "Mine", "3", ProductionTypeEnum.Building, "+2 Production", YieldTypeEnum.Production, 2, "Mine", 30, 0);
         productions.Add(mine);
 
-        Production laboratory = new Production(3, "Laboratory", "3", ProductionTypeEnum.Building, "+10 Science", YieldTypeEnum.Science, 10, "Lab");
+        Production laboratory = new Production(3, "Laboratory", "3", ProductionTypeEnum.Building, "+10 Science", YieldTypeEnum.Science, 10, "Lab", 26, 0);
         productions.Add(laboratory);
 
         // Production spaceshipFactory = new Production(6, "Spaceship Factory", "70 Turns", ProductionTypeEnum.Building);
