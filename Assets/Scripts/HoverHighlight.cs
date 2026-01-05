@@ -24,7 +24,7 @@ public class UIHoverHighlight : MonoBehaviour,
     void Awake()
     {
         image = GetComponent<Image>();
-        if (image == null)
+        //if (image == null)
             //Debug.LogError("UIHoverHighlight requires an Image component");
 
         originalColor = image.color;
@@ -53,7 +53,7 @@ public class UIHoverHighlight : MonoBehaviour,
         }
 
         currentProductionPanel = FindObjectOfType<CurrentProductionPanel>();
-        if (currentProductionPanel == null)
+        //if (currentProductionPanel == null)
             //Debug.LogError("CurrentProductionPanel not found");
 
         RefreshSelection();
