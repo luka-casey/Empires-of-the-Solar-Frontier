@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ColonyBuildingsPanel : MonoBehaviour
 {
     private Colony colony;
+    private string colonyNameForSave;
 
     [Header("Value Texts")]
     public GameObject buildingRowPrefab;
@@ -18,7 +19,9 @@ public class ColonyBuildingsPanel : MonoBehaviour
 
     public void UpdateText()
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
 
         if (colony.finishedProductions is not null)
         {

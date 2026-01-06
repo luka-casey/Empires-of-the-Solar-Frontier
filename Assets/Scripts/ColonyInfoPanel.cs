@@ -4,6 +4,7 @@ using TMPro;
 public class ColonyInfoPanel : MonoBehaviour
 {
     private Colony colony;
+    private string colonyNameForSave;
 
     [Header("Value Texts")]
     public TextMeshProUGUI populationValue;
@@ -14,7 +15,10 @@ public class ColonyInfoPanel : MonoBehaviour
 
     void Start()
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
+        
         UpdateText();
     }
 
@@ -41,7 +45,7 @@ public class ColonyInfoPanel : MonoBehaviour
             productionValue.text = (colony.productionBaseValue + colony.productionTotal).ToString();
             scienceValue.text = (colony.scienceBaseValue + colony.scienceTotal).ToString();
 
-            XmlManager.Save(colony);
+            XmlManager.Save(colony, colonyNameForSave);
         }
     }
 

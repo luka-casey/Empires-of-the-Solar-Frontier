@@ -9,13 +9,14 @@ public class CurrentProductionPanel : MonoBehaviour
     public GameObject buildPrefab;
     public GameObject turnsLeftPrefab;
     private Colony colony;
-
+    private string colonyNameForSave;
     private List<Production> productions;
-
 
     void Start()
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
 
         Instantiate(buildPrefab, transform);
         Instantiate(turnsLeftPrefab, transform);
@@ -25,13 +26,18 @@ public class CurrentProductionPanel : MonoBehaviour
 
     public void Refresh()
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
+
         UpdateSelectedProduction();
     }
 
     private void UpdateSelectedProduction()
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
 
         Transform buildTransform = transform.Find("Build(Clone)");
         TextMeshProUGUI build = buildTransform.GetComponent<TextMeshProUGUI>();
@@ -84,7 +90,7 @@ public class CurrentProductionPanel : MonoBehaviour
             }
             colony.selectedProduction = "";
 
-            XmlManager.Save(colony);
+            XmlManager.Save(colony, colonyNameForSave);
         }
     }
 }

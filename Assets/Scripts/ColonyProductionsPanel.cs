@@ -8,6 +8,7 @@ using System.Data.Common;
 public class ColonyProductionsPanel : MonoBehaviour
 {
     private Colony colony;
+    private string colonyNameForSave;
 
     [Header("Value Texts")]
     public GameObject unitPrefab;
@@ -21,11 +22,13 @@ public class ColonyProductionsPanel : MonoBehaviour
 
     void Start()
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
 
         if (colony.turnsLeft == -33)
         {
-            NextTurnButton.UpdateProductionsTurns();
+            NextTurnButton.UpdateProductionsTurns(colonyNameForSave);
         }
 
         UpdateText();
@@ -33,7 +36,10 @@ public class ColonyProductionsPanel : MonoBehaviour
 
     public void UpdateText()
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+
+        colony = XmlManager.Load(colonyNameForSave);
 
         if (colony.productions is null)
         {

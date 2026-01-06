@@ -4737,10 +4737,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2084175575072592472, guid: 066e7083f889b40789a31223ae61ec6f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9123794271366265759}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 503941096976485033, guid: 066e7083f889b40789a31223ae61ec6f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8044080511600075656}
   m_SourcePrefab: {fileID: 100100000, guid: 066e7083f889b40789a31223ae61ec6f, type: 3}
 --- !u!224 &4681644877665121633 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2084175575072592472, guid: 066e7083f889b40789a31223ae61ec6f, type: 3}
   m_PrefabInstance: {fileID: 6635193762949556025}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6551235883058589072 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 503941096976485033, guid: 066e7083f889b40789a31223ae61ec6f, type: 3}
+  m_PrefabInstance: {fileID: 6635193762949556025}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8044080511600075656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551235883058589072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4dec67664ca4bd992c8d48dfd02f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlanetPanelsScript
+  colonyName: 

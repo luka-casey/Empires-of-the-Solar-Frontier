@@ -313,6 +313,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1921557384}
+  - {fileID: 1039584370}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &470607657
@@ -330,6 +331,9 @@ MonoBehaviour:
   colonyIconPrefab: {fileID: 503941096976485033, guid: 066e7083f889b40789a31223ae61ec6f, type: 3}
   planetPanelsPrefab: {fileID: 6551235883058589072, guid: 8340df20221874c4d8b9a908e8d9c0c8, type: 3}
   colonyIconSpawnPoint: {fileID: 1921557384}
+  colonyIconPrefab1: {fileID: 503941096976485033, guid: 066e7083f889b40789a31223ae61ec6f, type: 3}
+  planetPanelsPrefab1: {fileID: 6551235883058589072, guid: 8340df20221874c4d8b9a908e8d9c0c8, type: 3}
+  colonyIconSpawnPoint1: {fileID: 1039584370}
   hasColony: 0
 --- !u!114 &470607659
 MonoBehaviour:
@@ -852,6 +856,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1039584369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1039584370}
+  m_Layer: 5
+  m_Name: ColonyLocation2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1039584370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039584369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.96, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 470607656}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1921557383
 GameObject:
   m_ObjectHideFlags: 0

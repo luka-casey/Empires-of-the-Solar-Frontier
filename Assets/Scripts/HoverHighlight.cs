@@ -16,7 +16,7 @@ public class UIHoverHighlight : MonoBehaviour,
     private TextMeshProUGUI turnsLeft;
 
     private CurrentProductionPanel currentProductionPanel;
-
+    private string colonyNameForSave;
     private Color hoverColor = Color.grey;
     private Color selectedColor = Color.grey;
     private Color defaultTextColor = Color.white;
@@ -32,7 +32,9 @@ public class UIHoverHighlight : MonoBehaviour,
 
     void Start()
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
 
         // Production name
         Transform label = transform.Find("Label(Clone)");
@@ -75,7 +77,9 @@ public class UIHoverHighlight : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
 
         if (productionName == null || turnsLeft == null)
             return;
@@ -97,7 +101,7 @@ public class UIHoverHighlight : MonoBehaviour,
             colony.turnsLeft = int.Parse(turnsLeft.text);
         }
 
-        XmlManager.Save(colony);
+        XmlManager.Save(colony, colonyNameForSave);
         currentProductionPanel.Refresh();
 
         // 🔁 Force ALL items to refresh
@@ -109,7 +113,10 @@ public class UIHoverHighlight : MonoBehaviour,
 
     public void RefreshSelection()
     {
-        colony = XmlManager.Load();
+        PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
+        colonyNameForSave = planetPanel.colonyName + ".xml";
+
+        colony = XmlManager.Load(colonyNameForSave);
         UpdateProductionTextColors();
     }
 

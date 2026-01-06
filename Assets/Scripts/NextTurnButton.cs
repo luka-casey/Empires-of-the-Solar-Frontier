@@ -3,6 +3,7 @@ using TMPro;
 using System;
 using System.Data.Common;
 using System.Linq;
+using System.Collections.Generic;
 
 public class NextTurnButton : MonoBehaviour
 {
@@ -16,39 +17,22 @@ public class NextTurnButton : MonoBehaviour
     {
         CurrentTurn++;
 
-        UpdateProductionsTurns();
+        List<string> colonyNames = new List<string>();
+        colonyNames.Add("Victoria.xml");
+        colonyNames.Add("Albert.xml");
+
+        foreach (string name in colonyNames)
+        {
+            UpdateProductionsTurns(name);
+        }
 
         UpdateTurnText();
         ship.StartTurn();
     }
 
-    public static void UpdateProductionTurns(Colony colony)
+    public static void UpdateProductionsTurns(string colonyName)
     {
-        foreach (Production production in colony.productions)
-        {
-            ColonyProductionsPanel.UpdateProductionMeter(colony, production);
-
-            int productionPerTurn = colony.productionTotal + colony.productionBaseValue;
-
-            if (productionPerTurn > production.requiredProduction)
-            {
-                production.turns = "0";
-                colony.turnsLeft = 0;
-            }
-            else
-            {
-                var currentWorkingProduction = colony.productionTotal + colony.productionBaseValue;
-                int producedSoFar = production.productionMeter;
-                int remainingProduction = production.requiredProduction - producedSoFar;
-
-                production.turns = Mathf.CeilToInt((float)remainingProduction / currentWorkingProduction).ToString();
-            }
-        }
-    }
-
-    public static void UpdateProductionsTurns()
-    {
-        Colony colony = XmlManager.Load();
+        Colony colony = XmlManager.Load(colonyName);
 
         if (colony.turnsLeft > -1 && !string.IsNullOrEmpty(colony.selectedProduction))
         {
@@ -84,7 +68,31 @@ public class NextTurnButton : MonoBehaviour
             }
         }
 
-        XmlManager.Save(colony);
+        XmlManager.Save(colony, colonyName);
+    }
+
+    public static void UpdateProductionTurns(Colony colony)
+    {
+        foreach (Production production in colony.productions)
+        {
+            ColonyProductionsPanel.UpdateProductionMeter(colony, production);
+
+            int productionPerTurn = colony.productionTotal + colony.productionBaseValue;
+
+            if (productionPerTurn > production.requiredProduction)
+            {
+                production.turns = "0";
+                colony.turnsLeft = 0;
+            }
+            else
+            {
+                var currentWorkingProduction = colony.productionTotal + colony.productionBaseValue;
+                int producedSoFar = production.productionMeter;
+                int remainingProduction = production.requiredProduction - producedSoFar;
+
+                production.turns = Mathf.CeilToInt((float)remainingProduction / currentWorkingProduction).ToString();
+            }
+        }
     }
 
     void UpdateTurnText()

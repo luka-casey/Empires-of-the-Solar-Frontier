@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class ColonyHoverUI : MonoBehaviour
 {
@@ -10,14 +11,25 @@ public class ColonyHoverUI : MonoBehaviour
     public TextMeshProUGUI productionText;
     public TextMeshProUGUI scienceText;
     private Colony colony;
+    private string colonyNameForSave;
 
     void Start()
     {
-        colony = XmlManager.Load();
+        ColonyIconClick colonyIconClick = GetComponent<ColonyIconClick>();
+        colonyNameForSave = colonyIconClick.colonyNameForSave + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
     }
 
     void OnMouseEnter()
     {
+        // Need to make this dynamic
+        if (colonyNameForSave == "Albert.xml")
+        {
+            Transform panelTransform = tooltipCanvas.transform.Find("Panel");
+            RectTransform rectTransform = panelTransform.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(400f, -200f);
+        }
+
         UpdateText();
         tooltipCanvas.enabled = true;
     }
@@ -29,7 +41,9 @@ public class ColonyHoverUI : MonoBehaviour
 
     void UpdateText()
     {
-        colony = XmlManager.Load();
+        ColonyIconClick colonyIconClick = GetComponent<ColonyIconClick>();
+        colonyNameForSave = colonyIconClick.colonyNameForSave + ".xml";
+        colony = XmlManager.Load(colonyNameForSave);
 
         if (colony.finishedProductions != null)
         {

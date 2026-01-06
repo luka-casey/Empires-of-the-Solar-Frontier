@@ -3,6 +3,7 @@ using UnityEngine;
 public class ColonyIconClick : MonoBehaviour
 {
     private PlanetColonyManager manager;
+    public string colonyNameForSave;
 
     public void Init(PlanetColonyManager manager)
     {
@@ -12,6 +13,6 @@ public class ColonyIconClick : MonoBehaviour
     void OnMouseDown()
     {
         // Toggle the panel when the icon is clicked
-        manager.ToggleColonyPanels();
+        manager.ToggleColonyPanels(colonyNameForSave);
     }
 }

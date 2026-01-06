@@ -6,13 +6,18 @@ using UnityEngine;
 public static class XmlManager
 {
     private static string FilePath =>
-        Path.Combine(Application.persistentDataPath, "dummy_test.xml");
+        Path.Combine(Application.persistentDataPath, "Victoria.xml");
 
-    public static void Save(Colony colonyData)
+    public static void Save(Colony colonyData, string? colonyName)//= "Victoria.xml"
     {
+        var path = FilePath;
+
+        if (colonyName != null)
+            path = Path.Combine(Application.persistentDataPath, colonyName);
+
         var serializer = new XmlSerializer(typeof(Colony));
 
-        using var stream = new FileStream(FilePath, FileMode.Create);
+        using var stream = new FileStream(path, FileMode.Create);
         serializer.Serialize(stream, colonyData);
 
         //Debug.Log($"Save written to:\n{FilePath}");
@@ -52,17 +57,22 @@ public static class XmlManager
         // Debug.Log($"Save written to:\n{FilePath}");
     }
 
-    public static Colony Load()
+    public static Colony Load(string? colonyName) //string? colonyName = "Victoria.xml"
     {
-        if (!File.Exists(FilePath))
+        var path = FilePath;
+
+        if (colonyName != null)
+            path = Path.Combine(Application.persistentDataPath, colonyName);
+
+        if (!File.Exists(path))
         {
-            //Debug.LogError("Save file not found!");
+            Debug.LogError("Save file not found!");
             return null;
         }
 
         var serializer = new XmlSerializer(typeof(Colony));
 
-        using var stream = new FileStream(FilePath, FileMode.Open);
+        using var stream = new FileStream(path, FileMode.Open);
         Colony data = (Colony)serializer.Deserialize(stream);
 
         return data;
