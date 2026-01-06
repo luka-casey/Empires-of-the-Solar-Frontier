@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlanetColonyManager : MonoBehaviour
@@ -10,9 +11,10 @@ public class PlanetColonyManager : MonoBehaviour
     public GameObject planetPanelsPrefab1;
     public Transform colonyIconSpawnPoint1;
 
+    public TMPro.TMP_FontAsset copperplateFont;
+
     private GameObject planetPanelsInstance; 
     private GameObject colonyIconInstance;  
-
     private GameObject planetPanelsInstance1;
     private GameObject colonyIconInstance1;   
 
@@ -43,6 +45,8 @@ public class PlanetColonyManager : MonoBehaviour
         clickHandler.Init(this);
         clickHandler.colonyNameForSave = "Victoria";
 
+        AddColonyNameText(colonyIconInstance, "Victoria");
+
         // Instantiate panel at root and store reference
         planetPanelsInstance = Instantiate(planetPanelsPrefab);
         PlanetPanelsScript planetPanelsScript = planetPanelsInstance.GetComponent<PlanetPanelsScript>();
@@ -66,6 +70,8 @@ public class PlanetColonyManager : MonoBehaviour
         clickHandler.Init(this);
         clickHandler.colonyNameForSave = "Albert";
 
+        AddColonyNameText(colonyIconInstance1, "Albert");
+
         // Instantiate panel at root and store reference
         planetPanelsInstance1 = Instantiate(planetPanelsPrefab1);
         PlanetPanelsScript planetPanelsScript = planetPanelsInstance1.GetComponent<PlanetPanelsScript>();
@@ -73,6 +79,32 @@ public class PlanetColonyManager : MonoBehaviour
 
         // Start with panel hidden
         planetPanelsInstance1.SetActive(false);
+    }
+
+    public void AddColonyNameText(GameObject colonyIconInst, string colonyName)
+    {
+        // Create colony name (sibling)
+        GameObject colonyNameGO = new GameObject("ColonyName");
+
+        // Same parent as the icon
+        colonyNameGO.transform.SetParent(colonyIconInst.transform.parent);
+
+        // Position it above the icon in world space
+        colonyNameGO.transform.position = colonyIconInst.transform.position + new Vector3(0f, 0.25f, 0f);
+
+        // Add TextMeshPro (3D)
+        TMPro.TextMeshPro textMesh = colonyNameGO.AddComponent<TMPro.TextMeshPro>();
+
+        // Configure text
+        textMesh.text = colonyName;
+        textMesh.fontSize = 1.8f;
+        textMesh.alignment = TMPro.TextAlignmentOptions.Center;
+        textMesh.color = Color.black;
+        textMesh.font = copperplateFont;
+        textMesh.fontStyle = TMPro.FontStyles.UpperCase;
+
+        // Make sure it renders on top
+        textMesh.renderer.sortingOrder = 10;
     }
 
     public void ToggleColonyPanels(string colonyName)
