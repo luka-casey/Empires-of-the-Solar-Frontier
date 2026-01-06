@@ -56,9 +56,13 @@ public class NextTurnButton : MonoBehaviour
             colony.turnsLeft = int.Parse(x.turns);
         }
 
-        if (colony.productions != null && colony.productions.Count > 0)
+        if (colony.productions != null && colony.productions.Count > 0 )
         {
-            UpdateProductionTurns(colony);
+            //Hard Coded for now, this allows for turns to be calcualted on turn 1, but not further calculated after something is finished (bug)
+            if (colony.productions[0].turns == "100" || colony.selectedProduction != "")
+            {
+                UpdateProductionTurns(colony);
+            }
         }
 
         if (colony.turnsLeft > -1 && !string.IsNullOrEmpty(colony.selectedProduction))
@@ -71,10 +75,13 @@ public class NextTurnButton : MonoBehaviour
         // It re-applies the yield of the newly finished building so its reflected in the Production Panels turns
         if(colony.turnsLeft == 0)
         {
-            var productionFinishedThisTurn = colony.productions.Where(p => p.productionName == colony.selectedProduction).First();
-            colony.finishedProductions.Add(productionFinishedThisTurn);
+            var productionFinishedThisTurn = colony.productions.Where(p => p.productionName == colony.selectedProduction).FirstOrDefault();
 
-            UpdateProductionTurns(colony);
+            if(productionFinishedThisTurn is not null)
+            {
+                colony.finishedProductions.Add(productionFinishedThisTurn);
+                UpdateProductionTurns(colony);
+            }
         }
 
         XmlManager.Save(colony);

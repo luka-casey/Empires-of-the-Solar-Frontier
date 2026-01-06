@@ -50,7 +50,7 @@ public class CurrentProductionPanel : MonoBehaviour
             Transform imageTransform = transform.Find("Image"); 
             Image image = imageTransform.GetComponent<Image>();
             image.sprite = loadedSprite;
-            image.color = Color.cyan;
+            image.color = Color.deepSkyBlue;
         }
 
         if (colony.turnsLeft == 0 || colony.turnsLeft < 0)
@@ -61,7 +61,7 @@ public class CurrentProductionPanel : MonoBehaviour
             GameObject imageTransform = GameObject.Find("Image"); 
             Image image = imageTransform.GetComponent<Image>();
             image.sprite = loadedSprite;
-            image.color = Color.cyan;
+            image.color = Color.deepSkyBlue; //Color.cyan; 
         }
 
         if (colony.turnsLeft == 0 && colony.selectedProduction != "")
