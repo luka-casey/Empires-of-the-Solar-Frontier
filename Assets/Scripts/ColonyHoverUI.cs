@@ -22,16 +22,20 @@ public class ColonyHoverUI : MonoBehaviour
 
     void OnMouseEnter()
     {
-        // Need to make this dynamic
-        if (colonyNameForSave == "Albert.xml")
-        {
-            Transform panelTransform = tooltipCanvas.transform.Find("Panel");
-            RectTransform rectTransform = panelTransform.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(400f, -200f);
-        }
-
         UpdateText();
         tooltipCanvas.enabled = true;
+
+        Transform panelTransform = tooltipCanvas.transform.Find("Panel");
+        RectTransform rectTransform = panelTransform.GetComponent<RectTransform>();
+
+        // Get object's screen position
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
+
+        // Offset it slightly lower (Y axis is screen-space)
+        screenPos.y -= 200f; // adjust this value as needed
+
+        // Apply to the panel
+        rectTransform.position = screenPos;
     }
 
     void OnMouseExit()
