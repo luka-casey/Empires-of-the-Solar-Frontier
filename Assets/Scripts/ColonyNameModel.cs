@@ -2,18 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SimpleNameModalBuilder : MonoBehaviour
+public class ColonyNameModel : MonoBehaviour
 {
     public TMP_FontAsset font;
 
     GameObject modalRoot;
     TMP_InputField inputField;
-
-    // void Start()
-    // {
-    //     BuildModal();
-    //     modalRoot.SetActive(true);
-    // }
 
     public void Open()
     {
