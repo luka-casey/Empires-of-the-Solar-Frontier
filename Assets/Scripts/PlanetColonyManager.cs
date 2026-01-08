@@ -79,7 +79,7 @@ public class PlanetColonyManager : MonoBehaviour
         int colonyCount = XmlManager.LoadPlanetColonyNames("Earth").colonyNames.Count;//if Planet.Colonies < 4
         if (colonyCount < 3)
         {
-            FindObjectOfType<SimpleNameModalBuilder>().Open();
+            FindObjectOfType<ColonyNameModel>().Open();
         }
     }
 
