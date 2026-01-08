@@ -17,13 +17,12 @@ public class NextTurnButton : MonoBehaviour
     {
         CurrentTurn++;
 
-        List<string> colonyNames = new List<string>();
-        colonyNames.Add("Victoria.xml");
-        colonyNames.Add("Albert.xml");
+        List<string> colonyNames = XmlManager.LoadPlanetColonyNames("Earth").colonyNames;
 
         foreach (string name in colonyNames)
         {
-            UpdateProductionsTurns(name);
+            string fileName = $"{name}.xml";
+            UpdateProductionsTurns(fileName);
         }
 
         UpdateTurnText();

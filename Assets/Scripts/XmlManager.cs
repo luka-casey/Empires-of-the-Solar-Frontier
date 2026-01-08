@@ -77,4 +77,37 @@ public static class XmlManager
 
         return data;
     }
+
+    public static SolarPlanet LoadPlanetColonyNames(string planetName)
+    {
+        var path = Path.Combine(Application.persistentDataPath, $"{planetName}Colonies.xml");
+
+        if (!File.Exists(path))
+        {
+            Debug.LogError($"{path} not found!");
+            return null;
+        }
+
+        var serializer = new XmlSerializer(typeof(SolarPlanet));
+
+        using var stream = new FileStream(path, FileMode.Open);
+        SolarPlanet data = (SolarPlanet)serializer.Deserialize(stream);
+
+        return data;
+    }
+
+    public static void SavePlanetColonyNames(SolarPlanet solarPlanet)
+    {
+        var path = Path.Combine(Application.persistentDataPath, $"{solarPlanet.planetName}Colonies.xml");
+
+        if (!File.Exists(path))
+        {
+            Debug.LogError($"{path} not found!");
+        }
+
+        var serializer = new XmlSerializer(typeof(SolarPlanet));
+
+        using var stream = new FileStream(path, FileMode.Create);
+        serializer.Serialize(stream, solarPlanet);
+    }
 }

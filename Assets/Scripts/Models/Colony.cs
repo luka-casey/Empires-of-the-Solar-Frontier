@@ -25,4 +25,17 @@ public class Colony
     public Colony()
     {
     }
+
+    public static Colony CreateNewColonyObject()
+    {
+        return new Colony()
+        {
+            populationBaseValue = 3,
+            incomeBaseValue = 3,
+            expensesBaseValue = 3,
+            productionBaseValue = 3,
+            scienceBaseValue = 3,
+            turnsLeft = -33 //specialNumber for logic
+        };
+    }
 }

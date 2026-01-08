@@ -154,13 +154,13 @@ public class ColonyProductionsPanel : MonoBehaviour
         // productions.Add(scientist);
 
         //Buildings
-        Production greenhouse = new Production(1, "Greenhouse", "3", ProductionTypeEnum.Building, "+6 Population", YieldTypeEnum.Population, 6, "Greenhouse", 22, 0);
+        Production greenhouse = new Production(1, "Greenhouse", "100", ProductionTypeEnum.Building, "+6 Population", YieldTypeEnum.Population, 6, "Greenhouse", 10, 0);
         productions.Add(greenhouse);
 
-        Production mine = new Production(2, "Mine", "3", ProductionTypeEnum.Building, "+2 Production", YieldTypeEnum.Production, 2, "Mine", 30, 0);
+        Production mine = new Production(2, "Mine", "100", ProductionTypeEnum.Building, "+2 Production", YieldTypeEnum.Production, 2, "Mine", 15, 0);
         productions.Add(mine);
 
-        Production laboratory = new Production(3, "Laboratory", "3", ProductionTypeEnum.Building, "+10 Science", YieldTypeEnum.Science, 10, "Lab", 26, 0);
+        Production laboratory = new Production(3, "Laboratory", "100", ProductionTypeEnum.Building, "+10 Science", YieldTypeEnum.Science, 10, "Lab", 20, 0);
         productions.Add(laboratory);
 
         // Production spaceshipFactory = new Production(6, "Spaceship Factory", "70 Turns", ProductionTypeEnum.Building);

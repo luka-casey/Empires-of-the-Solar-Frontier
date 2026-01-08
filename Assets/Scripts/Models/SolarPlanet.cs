@@ -5,16 +5,16 @@ using UnityEngine;
 public class SolarPlanet
 {
     public string planetName;
-    public List<Colony>? planetColonies;
+    public List<string> colonyNames;
     
 
     public SolarPlanet()
     {
     }
 
-    public SolarPlanet(string PlanetName, List<Colony>? PlanetColonies)
+    public SolarPlanet(string PlanetName, List<string> ColonyNames)
     {
         this.planetName = PlanetName;
-        this.planetColonies = PlanetColonies;
+        this.colonyNames = ColonyNames;
     }
 }

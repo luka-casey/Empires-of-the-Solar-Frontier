@@ -314,6 +314,7 @@ Transform:
   m_Children:
   - {fileID: 1921557384}
   - {fileID: 1039584370}
+  - {fileID: 517913280}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &470607657
@@ -330,10 +331,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlanetColonyManager
   colonyIconPrefab: {fileID: 503941096976485033, guid: 066e7083f889b40789a31223ae61ec6f, type: 3}
   planetPanelsPrefab: {fileID: 6551235883058589072, guid: 8340df20221874c4d8b9a908e8d9c0c8, type: 3}
-  colonyIconSpawnPoint: {fileID: 1921557384}
-  colonyIconPrefab1: {fileID: 503941096976485033, guid: 066e7083f889b40789a31223ae61ec6f, type: 3}
-  planetPanelsPrefab1: {fileID: 6551235883058589072, guid: 8340df20221874c4d8b9a908e8d9c0c8, type: 3}
-  colonyIconSpawnPoint1: {fileID: 1039584370}
+  colonyIconSpawnPointA: {fileID: 1921557384}
+  colonyIconSpawnPointB: {fileID: 1039584370}
+  colonyIconSpawnPointC: {fileID: 517913280}
   copperplateFont: {fileID: 11400000, guid: c01d21c31c5c044f3bb912717b0e3f19, type: 2}
   hasColony: 0
 --- !u!114 &470607659
@@ -426,6 +426,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &517913279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 517913280}
+  m_Layer: 5
+  m_Name: ColonyLocation3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &517913280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517913279}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.96, y: -3.12, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 470607656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -580,6 +611,51 @@ MonoBehaviour:
   startZoom: 10
   targetZoom: 4.9
   zoomDuration: 0
+--- !u!1 &547972915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 547972917}
+  - component: {fileID: 547972916}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &547972916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547972915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40586e373e4cc40758221cb1cf84ad5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleNameModalBuilder
+  font: {fileID: 11400000, guid: c01d21c31c5c044f3bb912717b0e3f19, type: 2}
+--- !u!4 &547972917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547972915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.4535, y: 3.37546, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,7 +826,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 470607657}
         m_TargetAssemblyTypeName: PlanetColonyManager, Assembly-CSharp
-        m_MethodName: EstablishColony
+        m_MethodName: OpenColonyModel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -898,7 +974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1921557384}
   m_Layer: 5
-  m_Name: ColonyLocation
+  m_Name: ColonyLocation1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1065,3 +1141,4 @@ SceneRoots:
   - {fileID: 291647486}
   - {fileID: 470607656}
   - {fileID: 512474452}
+  - {fileID: 547972917}

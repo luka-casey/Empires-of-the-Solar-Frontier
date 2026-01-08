@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -5,13 +8,15 @@ public class PlanetColonyManager : MonoBehaviour
 {
     public GameObject colonyIconPrefab;
     public GameObject planetPanelsPrefab;
-    public Transform colonyIconSpawnPoint;
 
-    public GameObject colonyIconPrefab1;
-    public GameObject planetPanelsPrefab1;
-    public Transform colonyIconSpawnPoint1;
+    public Transform colonyIconSpawnPointA;
+    public Transform colonyIconSpawnPointB;
+    public Transform colonyIconSpawnPointC;
 
     public TMPro.TMP_FontAsset copperplateFont;
+
+
+    private List<GameObject> planetPanelsInstances;
 
     private GameObject planetPanelsInstance; 
     private GameObject colonyIconInstance;  
@@ -22,63 +27,115 @@ public class PlanetColonyManager : MonoBehaviour
 
     void Start()
     {
-        this.EstablishColony();        
+        //Load Existing Collonies
+        this.LoadColonies();        
     }
 
-    public void EstablishColony()
+    public void LoadColonies()
     {
-        EstablishColonyVictoria();
-        EstablishColonyAlbert();
+        List<string> colonyNames = XmlManager.LoadPlanetColonyNames("Earth").colonyNames;
+        
+        if (colonyNames.Count > 0)
+        {
+            int colonyCount = 0;
+
+            foreach (string newColonyName in colonyNames)
+            {
+                colonyCount++;
+                //Store for later, will set based on how many already exist
+                List<Transform> colonySpawnPoints = new List<Transform>();
+                colonySpawnPoints.Add(colonyIconSpawnPointA);
+                colonySpawnPoints.Add(colonyIconSpawnPointB);
+                colonySpawnPoints.Add(colonyIconSpawnPointC);
+
+                //int colonyCount = XmlManager.LoadPlanetColonyNames("Earth").colonyNames.Count;
+                var selectedSpawnPoint = colonySpawnPoints[colonyCount - 1];
+
+                hasColony = true;
+
+                // Instantiate colony icon attached to planet                                          
+                GameObject colonyIconInstanceTest = Instantiate(colonyIconPrefab, selectedSpawnPoint.position, Quaternion.identity, transform);
+
+                // Add a click listener to the icon
+                var clickHandler = colonyIconInstanceTest.AddComponent<ColonyIconClick>();
+                clickHandler.Init(this);
+                clickHandler.colonyNameForSave = newColonyName;
+
+                AddColonyNameText(colonyIconInstanceTest, newColonyName);
+
+                // Instantiate panel at root and store reference
+                GameObject planetPanelsInstanceTest = Instantiate(planetPanelsPrefab);
+                PlanetPanelsScript planetPanelsScript = planetPanelsInstanceTest.GetComponent<PlanetPanelsScript>();
+                planetPanelsScript.colonyName = newColonyName;
+
+                // Start with panel hidden
+                planetPanelsInstanceTest.SetActive(false);
+            }
+        }
     }
 
-    public void EstablishColonyVictoria()
+    public void OpenColonyModel()
     {
-        //if (hasColony) return;
+        int colonyCount = XmlManager.LoadPlanetColonyNames("Earth").colonyNames.Count;//if Planet.Colonies < 4
+        if (colonyCount < 3)
+        {
+            FindObjectOfType<SimpleNameModalBuilder>().Open();
+        }
+    }
+
+    public void InitializeNewColonyCreation(string newColonyName)
+    {
+        //Store for later, will set based on how many already exist
+        List<Transform> colonySpawnPoints = new List<Transform>();
+        colonySpawnPoints.Add(colonyIconSpawnPointA);
+        colonySpawnPoints.Add(colonyIconSpawnPointB);
+        colonySpawnPoints.Add(colonyIconSpawnPointC);
+
+        int colonyCount = XmlManager.LoadPlanetColonyNames("Earth").colonyNames.Count;
+        var selectedSpawnPoint = colonySpawnPoints[colonyCount];
 
         hasColony = true;
 
-        // Instantiate colony icon attached to planet
-        colonyIconInstance = Instantiate(colonyIconPrefab, colonyIconSpawnPoint.position, Quaternion.identity, transform);
+        // Instantiate colony icon attached to planet                                          
+        GameObject colonyIconInstanceTest = Instantiate(colonyIconPrefab, selectedSpawnPoint.position, Quaternion.identity, transform);
 
         // Add a click listener to the icon
-        var clickHandler = colonyIconInstance.AddComponent<ColonyIconClick>();
+        var clickHandler = colonyIconInstanceTest.AddComponent<ColonyIconClick>();
         clickHandler.Init(this);
-        clickHandler.colonyNameForSave = "Victoria";
+        clickHandler.colonyNameForSave = newColonyName;
 
-        AddColonyNameText(colonyIconInstance, "Victoria");
+        AddColonyNameText(colonyIconInstanceTest, newColonyName);
 
         // Instantiate panel at root and store reference
-        planetPanelsInstance = Instantiate(planetPanelsPrefab);
-        PlanetPanelsScript planetPanelsScript = planetPanelsInstance.GetComponent<PlanetPanelsScript>();
-        planetPanelsScript.colonyName = "Victoria";
+        GameObject planetPanelsInstanceTest = Instantiate(planetPanelsPrefab);
+        PlanetPanelsScript planetPanelsScript = planetPanelsInstanceTest.GetComponent<PlanetPanelsScript>();
+        planetPanelsScript.colonyName = newColonyName;
 
         // Start with panel hidden
-        planetPanelsInstance.SetActive(false);
-    }
+        planetPanelsInstanceTest.SetActive(false);
 
-    public void EstablishColonyAlbert()
-    {
-        //if (hasColony) return;
+        //Create XML For new Colony
+        var filePath = Path.Combine(Application.persistentDataPath, $"{newColonyName}.xml");
+        
+        if (!File.Exists(filePath))
+        {
+            using (File.Create(filePath)) { }
+        }
 
-        hasColony = true;
+        List<string> colonyNames = XmlManager.LoadPlanetColonyNames("Earth").colonyNames;
+        colonyNames.Add(newColonyName);
 
-        // Instantiate colony icon attached to planet
-        colonyIconInstance1 = Instantiate(colonyIconPrefab1, colonyIconSpawnPoint1.position, Quaternion.identity, transform);
+        SolarPlanet solarPlanet = new SolarPlanet()
+        {
+            planetName = "Earth",
+            colonyNames = colonyNames
+        };
 
-        // Add a click listener to the icon
-        var clickHandler = colonyIconInstance1.AddComponent<ColonyIconClick>();
-        clickHandler.Init(this);
-        clickHandler.colonyNameForSave = "Albert";
+        Colony newColony = Colony.CreateNewColonyObject();
+        newColony.productions = ColonyProductionsPanel.CreateProductions();
 
-        AddColonyNameText(colonyIconInstance1, "Albert");
-
-        // Instantiate panel at root and store reference
-        planetPanelsInstance1 = Instantiate(planetPanelsPrefab1);
-        PlanetPanelsScript planetPanelsScript = planetPanelsInstance1.GetComponent<PlanetPanelsScript>();
-        planetPanelsScript.colonyName = "Albert";
-
-        // Start with panel hidden
-        planetPanelsInstance1.SetActive(false);
+        XmlManager.Save(newColony, $"{newColonyName}.xml");
+        XmlManager.SavePlanetColonyNames(solarPlanet);
     }
 
     public void AddColonyNameText(GameObject colonyIconInst, string colonyName)
@@ -109,19 +166,16 @@ public class PlanetColonyManager : MonoBehaviour
 
     public void ToggleColonyPanels(string colonyName)
     {
-        if (colonyName == "Victoria")
+        PlanetPanelsScript[] panels = FindObjectsOfType<PlanetPanelsScript>(true);
+
+        foreach (PlanetPanelsScript panel in panels)
         {
-            if (planetPanelsInstance != null)
+            if (panel.colonyName == colonyName)
             {
-                planetPanelsInstance.SetActive(!planetPanelsInstance.activeSelf);
-            }
-        }
-        else if (colonyName == "Albert")
-        {
-            if (planetPanelsInstance1 != null)
-            {
-                planetPanelsInstance1.SetActive(!planetPanelsInstance1.activeSelf);
+                panel.gameObject.SetActive(!panel.gameObject.activeSelf);
+                return;
             }
         }
     }
+
 }
