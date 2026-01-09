@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EarthPlanetView.unity
     guid: 2052951b0747943df9e6b207a59b553b
+  - enabled: 1
+    path: Assets/Scenes/MarsPlanetView.unity
+    guid: 98d9cec345a1a4936ac18f3ade38985b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

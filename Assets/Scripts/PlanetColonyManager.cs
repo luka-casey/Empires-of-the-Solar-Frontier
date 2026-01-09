@@ -14,14 +14,8 @@ public class PlanetColonyManager : MonoBehaviour
     public Transform colonyIconSpawnPointC;
 
     public TMPro.TMP_FontAsset copperplateFont;
+    public string planetName;
 
-
-    private List<GameObject> planetPanelsInstances;
-
-    private GameObject planetPanelsInstance; 
-    private GameObject colonyIconInstance;  
-    private GameObject planetPanelsInstance1;
-    private GameObject colonyIconInstance1;   
 
     public bool hasColony = false;
 
@@ -33,7 +27,7 @@ public class PlanetColonyManager : MonoBehaviour
 
     public void LoadColonies()
     {
-        List<string> colonyNames = XmlManager.LoadPlanetColonyNames("Earth").colonyNames;
+        List<string> colonyNames = XmlManager.LoadPlanetColonyNames(planetName).colonyNames;
         
         if (colonyNames.Count > 0)
         {
@@ -48,7 +42,6 @@ public class PlanetColonyManager : MonoBehaviour
                 colonySpawnPoints.Add(colonyIconSpawnPointB);
                 colonySpawnPoints.Add(colonyIconSpawnPointC);
 
-                //int colonyCount = XmlManager.LoadPlanetColonyNames("Earth").colonyNames.Count;
                 var selectedSpawnPoint = colonySpawnPoints[colonyCount - 1];
 
                 hasColony = true;
@@ -76,7 +69,7 @@ public class PlanetColonyManager : MonoBehaviour
 
     public void OpenColonyModel()
     {
-        int colonyCount = XmlManager.LoadPlanetColonyNames("Earth").colonyNames.Count;//if Planet.Colonies < 4
+        int colonyCount = XmlManager.LoadPlanetColonyNames(planetName).colonyNames.Count;//if Planet.Colonies < 4
         if (colonyCount < 3)
         {
             FindObjectOfType<ColonyNameModel>().Open();
@@ -91,7 +84,7 @@ public class PlanetColonyManager : MonoBehaviour
         colonySpawnPoints.Add(colonyIconSpawnPointB);
         colonySpawnPoints.Add(colonyIconSpawnPointC);
 
-        int colonyCount = XmlManager.LoadPlanetColonyNames("Earth").colonyNames.Count;
+        int colonyCount = XmlManager.LoadPlanetColonyNames(planetName).colonyNames.Count;
         var selectedSpawnPoint = colonySpawnPoints[colonyCount];
 
         hasColony = true;
@@ -122,12 +115,12 @@ public class PlanetColonyManager : MonoBehaviour
             using (File.Create(filePath)) { }
         }
 
-        List<string> colonyNames = XmlManager.LoadPlanetColonyNames("Earth").colonyNames;
+        List<string> colonyNames = XmlManager.LoadPlanetColonyNames(planetName).colonyNames;
         colonyNames.Add(newColonyName);
 
         SolarPlanet solarPlanet = new SolarPlanet()
         {
-            planetName = "Earth",
+            planetName = planetName,
             colonyNames = colonyNames
         };
 
@@ -168,13 +161,33 @@ public class PlanetColonyManager : MonoBehaviour
     {
         PlanetPanelsScript[] panels = FindObjectsOfType<PlanetPanelsScript>(true);
 
+        PlanetPanelsScript targetPanel = null;
+
+        // Find the target panel
         foreach (PlanetPanelsScript panel in panels)
         {
             if (panel.colonyName == colonyName)
             {
-                panel.gameObject.SetActive(!panel.gameObject.activeSelf);
-                return;
+                targetPanel = panel;
+                break;
             }
+        }
+
+        if (targetPanel == null)
+            return;
+
+        bool wasOpen = targetPanel.gameObject.activeSelf;
+
+        // Close everything
+        foreach (PlanetPanelsScript panel in panels)
+        {
+            panel.gameObject.SetActive(false);
+        }
+
+        // If it wasn't open before, open it
+        if (!wasOpen)
+        {
+            targetPanel.gameObject.SetActive(true);
         }
     }
 

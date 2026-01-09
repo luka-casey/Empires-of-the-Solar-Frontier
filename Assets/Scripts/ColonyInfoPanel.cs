@@ -13,17 +13,31 @@ public class ColonyInfoPanel : MonoBehaviour
     public TextMeshProUGUI productionValue;
     public TextMeshProUGUI scienceValue;
 
+    public TextMeshProUGUI planetValue;
+    public TextMeshProUGUI colonyValue;
+
+    private string colonyName;
+
     void Start()
     {
         PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
         colonyNameForSave = planetPanel.colonyName + ".xml";
         colony = XmlManager.Load(colonyNameForSave);
         
+        colonyName = planetPanel.colonyName;
         UpdateText();
     }
 
     public void UpdateText()
     {
+        //Set's planets colony name in top-Left panel
+        string planetName = FindObjectOfType<PlanetColonyManager>().planetName;
+
+        planetValue.text = planetName;
+        planetValue.color = GetPlanetColorByPlanetName(planetName);
+
+        colonyValue.text = colonyName;
+
         if (colony.finishedProductions != null)
         {
             colony.incomeTotal = 0;
@@ -74,5 +88,27 @@ public class ColonyInfoPanel : MonoBehaviour
                 //Do nothing for now
                 break;
         }
+    }
+
+    public static Color GetPlanetColorByPlanetName(string planetName)
+    {
+        Color color = new Color();
+
+        switch(planetName)
+        {
+            case "Earth":
+            color = Color.deepSkyBlue;
+            break;
+
+            case "Mars":
+            color = Color.orange;
+            break;
+
+            default:
+            color = Color.white;
+            break;
+        }
+
+        return color;
     }
 }

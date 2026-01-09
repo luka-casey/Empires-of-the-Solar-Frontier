@@ -11,9 +11,13 @@ public class CurrentProductionPanel : MonoBehaviour
     private Colony colony;
     private string colonyNameForSave;
     private List<Production> productions;
+    private GameObject selectProductionText;
 
     void Start()
     {
+        selectProductionText = GameObject.Find("SelectProductionText"); 
+        selectProductionText.SetActive(false);
+
         PlanetPanelsScript planetPanel = GetComponentInParent<PlanetPanelsScript>();
         colonyNameForSave = planetPanel.colonyName + ".xml";
         colony = XmlManager.Load(colonyNameForSave);
@@ -56,18 +60,27 @@ public class CurrentProductionPanel : MonoBehaviour
             Transform imageTransform = transform.Find("Image"); 
             Image image = imageTransform.GetComponent<Image>();
             image.sprite = loadedSprite;
-            image.color = Color.deepSkyBlue;
+
+            string planetName = FindObjectOfType<PlanetColonyManager>().planetName;
+            image.color = ColonyInfoPanel.GetPlanetColorByPlanetName(planetName);
+
+            selectProductionText.SetActive(false);
         }
 
         if (colony.turnsLeft == 0 || colony.turnsLeft < 0)
         {
             turnsLeft.text = "";
 
-            Sprite loadedSprite = Resources.Load<Sprite>($"imageAssets/SelectProduction");
-            GameObject imageTransform = GameObject.Find("Image"); 
-            Image image = imageTransform.GetComponent<Image>();
-            image.sprite = loadedSprite;
-            image.color = Color.deepSkyBlue; //Color.cyan; 
+            // Sprite loadedSprite = Resources.Load<Sprite>($"imageAssets/SelectProduction");
+            // GameObject imageTransform = GameObject.Find("Image"); 
+            // Image image = imageTransform.GetComponent<Image>();
+            // image.sprite = null;//loadedSprite;
+            // image.color = Color.deepSkyBlue; //Color.cyan; 
+            string planetName = FindObjectOfType<PlanetColonyManager>().planetName;
+            var x = selectProductionText.GetComponent<TextMeshProUGUI>();
+            x.color = ColonyInfoPanel.GetPlanetColorByPlanetName(planetName);
+
+            selectProductionText.SetActive(true);
         }
 
         if (colony.turnsLeft == 0 && colony.selectedProduction != "")

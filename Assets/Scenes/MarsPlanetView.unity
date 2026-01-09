@@ -289,7 +289,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6967006477203480509, guid: 1e0371397cc424d5080cb9b85394117d, type: 3}
+  m_Sprite: {fileID: -1623159378083951528, guid: 92ad47fcbfd914f55856178143623f40, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
   colonyIconSpawnPointB: {fileID: 1039584370}
   colonyIconSpawnPointC: {fileID: 517913280}
   copperplateFont: {fileID: 11400000, guid: c01d21c31c5c044f3bb912717b0e3f19, type: 2}
-  planetName: Earth
+  planetName: Mars
   hasColony: 0
 --- !u!114 &470607659
 MonoBehaviour:

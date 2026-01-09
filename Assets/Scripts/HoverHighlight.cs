@@ -92,8 +92,8 @@ public class UIHoverHighlight : MonoBehaviour,
             Sprite loadedSprite = Resources.Load<Sprite>($"imageAssets/SelectProduction");
             GameObject imageTransform = GameObject.Find("Image"); 
             Image image = imageTransform.GetComponent<Image>();
-            image.sprite = loadedSprite;
-            image.color = Color.cyan;
+            image.sprite = null;//loadedSprite;
+            image.color = Color.black;
         }
         else
         {
