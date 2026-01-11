@@ -76,6 +76,11 @@ public class PlanetColonyManager : MonoBehaviour
         }
     }
 
+    public void OpenShipView()
+    {
+        FindObjectOfType<ShipPlanetView>().Open();
+    }
+
     public void InitializeNewColonyCreation(string newColonyName)
     {
         //Store for later, will set based on how many already exist
